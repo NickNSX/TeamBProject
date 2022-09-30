@@ -1,4 +1,2 @@
-<<<<<<< HEAD
-# teamBProject2
-=======
-
+# Team B Project2
+=================
