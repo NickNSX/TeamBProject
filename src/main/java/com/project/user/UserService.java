@@ -76,12 +76,12 @@ public class UserService {
         if(newUser.getRole() != null) {
             if (newUser.getRole().toUpperCase().equals("ADMIN")) {
                 Role role = new Role();
-                role.setId(UUID.fromString("UUID for Adim")); // TODO add uuid for Admin 8-4-4-4-12
+                role.setId(UUID.fromString("UUID for Admin")); // TODO add uuid for Admin 8-4-4-4-12
                 role.setName("Admin");
                 userToPersist.setRole(role);
             } else if (newUser.getRole().toUpperCase().equals("FINANCE MANAGER")) {
                 Role role = new Role();
-                role.setId(UUID.fromString("UUID for Finance Manger")); // TODO add uuid for Finance Manager 8-4-4-4-12
+                role.setId(UUID.fromString("UUID for Finance Manager")); // TODO add uuid for Finance Manager 8-4-4-4-12
                 role.setName("Finance Manager");
                 userToPersist.setRole(role);
             } else if (newUser.getRole().toUpperCase().equals("EMPLOYEE")) {
@@ -101,6 +101,66 @@ public class UserService {
 
         userRepo.save(userToPersist);
         return new ResourceCreationResponse(userToPersist.getId().toString());
+    }
 
+    // Update user's information
+    public void updateUser (UpdateUserRequest updateUser) {
+
+        if (updateUser.equals(null)) {
+            throw new InvalidRequestException("Request is empty. Provide information.");
+        }
+
+        if(!(userRepo.findUserByid(UUID.fromString(updateUser.getUserId())).isPresent())) {
+            throw new ResourceNotFoundException("User not found with given Id.");
+        }
+
+        if (updateUser.getUsername() != null) {
+            if(!(userRepo.findUserByUsername(updateUser.getUsername()).isPresent())) {
+                throw new ResourcePersistenceException("Username already taken.");
+            }
+            userRepo.updateUserEmail(updateUser.getEmail(), UUID.fromString(updateUser.getUserId()));
+        }
+
+        if (updateUser.getEmail() != null) {
+            if(!(userRepo.findUserByEmail(updateUser.getEmail())).isPresent()) {
+                throw new ResourcePersistenceException("Email already taken.");
+            }
+            userRepo.updateUserEmail(updateUser.getEmail(), UUID.fromString(updateUser.getUserId()));
+        }
+
+        if (updateUser.getGivenName() != null) {
+            userRepo.updateUserGivenName(updateUser.getGivenName(), UUID.fromString(updateUser.getUserId()));
+        }
+
+        if (updateUser.getSurname() != null) {
+            userRepo.updateSurname(updateUser.getSurname(), UUID.fromString(updateUser.getUserId()));
+        }
+
+        if(updateUser.getIsActive() == true) {
+            userRepo.updateUserIsActive(updateUser.getIsActive(), UUID.fromString(updateUser.getUserId()));
+        }
+
+        if (updateUser.getRole() != null) {
+            if (updateUser.getRole().toUpperCase().equals("EMPLOYEE")) {
+                userRepo.updateUserRole(UUID.fromString("UUID for Employee"), UUID.fromString(updateUser.getUserId())); // TODO enter uuid for employee
+            } else if (updateUser.getRole().toUpperCase().equals("FINANCE MANAGER")) {
+                userRepo.updateUserRole(UUID.fromString("UUID for Finance Manager"), UUID.fromString(updateUser.getUserId())); // TODO enter uuid for Finance Manager
+            } else if (updateUser.getRole().toUpperCase().equals("ADMIN")) {
+                userRepo.updateUserRole(UUID.fromString("UUID for Admin"), UUID.fromString(updateUser.getUserId())); // TODO enter uuid for Admin
+            } else {
+                throw new InvalidRequestException("Role not supported. Enter Employee, Finance Manager, Admin, or none.");
+            }
+        }
+
+    }
+
+    // Set user's is active to false
+    public void deactivateUser(UpdateUserRequest updateUserRequest) {
+
+        if (!(userRepo.findUserByid(UUID.fromString(updateUserRequest.getUserId())).isPresent())) {
+            throw new ResourceNotFoundException("User not found.");
+        }
+
+        userRepo.updateUserIsActive(false, UUID.fromString(updateUserRequest.getUserId()));
     }
 }
