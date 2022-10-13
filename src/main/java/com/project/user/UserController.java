@@ -1,7 +1,9 @@
 package com.project.user;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +26,7 @@ import com.project.common.ResourceCreationResponse;
 import static com.project.common.SecurityUtils.*;
 @RestController
 @RequestMapping("/users")
+@CrossOrigin(origins = "http://localhost:4200/", allowCredentials = "true")
 public class UserController {
 
     private static Logger logger = LogManager.getLogger(UserController.class);
@@ -39,11 +43,6 @@ public class UserController {
     public List<UserResponse> getAllUsers(HttpServletRequest req) {
 
         logger.info("A GET request was received by /users at {}", LocalDateTime.now());
-        HttpSession userSession = req.getSession(false);
-
-        enforceAuthentication(userSession);
-        enforcePermissions(userSession, "ADMIN");
-
         return userService.getAllUsers();
     }
 
@@ -52,11 +51,6 @@ public class UserController {
     public UserResponse getUserById(@PathVariable String id, HttpServletRequest req) {
 
         logger.info("A GET request was received by /users/{id} at {}", LocalDateTime.now());
-        HttpSession userSession = req.getSession(false);
-
-        enforceAuthentication(userSession);
-        enforcePermissions(userSession, "ADMIN");
-
         return userService.getUserById(id);
     }
 
@@ -65,39 +59,31 @@ public class UserController {
     public ResourceCreationResponse registerNewUser(@RequestBody NewUserRequest requestBody, HttpServletRequest req) {
 
         logger.info("A POST request was received by /users at {}", LocalDateTime.now());
-        HttpSession userSession = req.getSession(false);
 
-        enforceAuthentication(userSession);
-        enforcePermissions(userSession, "Admin");
+        // HttpSession userSession = req.getSession(false);
+        // enforceAuthentication(userSession);
+        // enforcePermissions(userSession, "Admin");
 
         return userService.register(requestBody);
     }    
 
     // Update user
     @PutMapping
-    public void updateUser(@RequestBody UpdateUserRequest updateUser, HttpServletRequest req) {
-        
-        HttpSession userSession = req.getSession(false);
+    public ArrayList<String> updateUser(@RequestBody UpdateUserRequest updateUser, HttpServletRequest req) {
 
-        enforceAuthentication(userSession);
-        enforcePermissions(userSession, "Admin");
+        ArrayList<String> result = userService.updateUser(updateUser);
 
-        userService.updateUser(updateUser);
+        return result;
         
     }
 
     // Deactivate a user
-    @DeleteMapping
-    public void deactivateUser(@RequestBody UpdateUserRequest updateUserRequest, HttpServletRequest req) {
+    @DeleteMapping(value = "/{id}")
+    public void deactivateUser(@PathVariable String id, HttpServletRequest req) {
 
-        logger.info("A DELETE request was received by /users at {}", LocalDateTime.now());
-        HttpSession userSession = req.getSession(false);
-
-        enforceAuthentication(userSession);
-        enforcePermissions(userSession, "Admin");
-
-        userService.deactivateUser(updateUserRequest);
-
+        logger.info("A DELETE request was received at /users at {}", LocalDateTime.now());
+        System.out.println(id);
+        userService.deactivateUser(id);
     }
 
 }

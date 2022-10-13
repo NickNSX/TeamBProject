@@ -90,6 +90,7 @@ public class UpdateUserRequest implements Request<User> {
     @Override
     public User extractEntity() {
         User extractedEntity = new User();
+        extractedEntity.setUsername(this.username);
         extractedEntity.setEmail(this.email);
         extractedEntity.setGivenName(this.givenName);
         extractedEntity.setSurname(this.surname);

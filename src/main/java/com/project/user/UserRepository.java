@@ -14,7 +14,7 @@ import javax.transaction.Transactional;
 public interface UserRepository extends JpaRepository<User, UUID> {
     boolean existsByUsername(String username);
     boolean existsByEmail(String email);
-    Optional<User> findUserByid(UUID userId);
+    Optional<User> findUserByUserId(UUID userId);
     Optional<User> findUserByUsername(String username);
     Optional<User> findUserByEmail(String email);
 
