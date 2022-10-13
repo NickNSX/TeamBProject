@@ -1,0 +1,10 @@
+server:
+    port: 5000
+    servlet:
+        context-path: /reimb
+
+spring:
+    application:
+        name: MainApp
+    profiles:
+        default: local
