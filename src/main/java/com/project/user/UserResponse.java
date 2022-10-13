@@ -6,7 +6,7 @@ import java.util.Objects;
 //* Response DTO
 public class UserResponse implements Serializable {
 
-    private String id;
+    private String userId;
     private String givenName;
     private String surname;
     private String email;
@@ -15,7 +15,7 @@ public class UserResponse implements Serializable {
     private String role;
 
     public UserResponse(User subject) {
-        this.id = subject.getId().toString();
+        this.userId = subject.getUserId().toString();
         this.givenName = subject.getGivenName();
         this.surname = subject.getSurname();
         this.email = subject.getEmail();
@@ -24,12 +24,12 @@ public class UserResponse implements Serializable {
         this.role = subject.getRole().getName();
     }
 
-    public String getId() {
-        return id;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getGivenName() {
@@ -85,20 +85,20 @@ public class UserResponse implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserResponse that = (UserResponse) o;
-        return Objects.equals(id, that.id) && Objects.equals(givenName, that.givenName) && Objects.equals(surname, that.surname) 
+        return Objects.equals(userId, that.userId) && Objects.equals(givenName, that.givenName) && Objects.equals(surname, that.surname) 
             && Objects.equals(email, that.email) && Objects.equals(username, that.username) 
             && Objects.equals(isActive, that.isActive) && Objects.equals(role, that.role);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, givenName, surname, email, username, isActive, role);
+        return Objects.hash(userId, givenName, surname, email, username, isActive, role);
     }
 
     @Override
     public String toString() {
         return "UserResponse{" +
-                "id='" + id + '\'' +
+                "userId='" + userId + '\'' +
                 ", givenName='" + givenName + '\'' +
                 ", surname='" + surname + '\'' +
                 ", email='" + email + '\'' +
