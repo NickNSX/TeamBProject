@@ -1,1 +1,54 @@
-<p>login works!</p>
+<div class="register">
+    <div>
+        <h2>Registration</h2>
+        <div class="container">
+            <div class="row">
+                <div class="form-floating mb-3 col">
+                    <input type="text" class="form-control" placeholder="First Name"
+                        [(ngModel)]="registerUser.givenName">
+                    <label for="floatingInput">First Name</label>
+                </div>
+                <div class="form-floating col">
+                    <input type="text" class="form-control" placeholder="Last Name" [(ngModel)]="registerUser.surname">
+                    <label for="floatingPassword">Last name</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-floating mb-3 col">
+                    <input type="email" class="form-control" placeholder="Email" [(ngModel)]="registerUser.email">
+                    <label for="floatingInput">Email</label>
+                </div>
+                <div class="form-floating col">
+                    <input type="password" class="form-control" placeholder="Password"
+                        [(ngModel)]="registerUser.password">
+                    <label for="floatingPassword">Password</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-floating mb-3 col">
+                    <input type="text" class="form-control" placeholder="Username" [(ngModel)]="registerUser.username">
+                    <label for="floatingInput">Username</label>
+                </div>
+                <div style="width: 50%;" class="input-group mb-3">
+                    <label class="input-group-text" for="inputGroupSelect01">Choose a Role</label>
+                    <select class="form-select" id="inputGroupSelect01" [(ngModel)]="registerUser.role">
+                        <option value="Admin">Admin</option>
+                        <option value="Finance Manager">Finance Manager</option>
+                        <option value="Employee" selected>Employee</option>
+                    </select>
+                </div>
+            </div>
+            <div class="buttons">
+                <button (click)="register()">Register</button>
+                <button routerLink="">Back To Login</button>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="message">
+            <p id="error" [hidden]="error">{{errorMessage}}</p>
+            <p id="success" [hidden]="success">User id is: {{idMessage}}.</p>
+            <p id="success" [hidden]="success">Must be approved be Admin.</p>
+        </div>
+    </div>
+</div>
