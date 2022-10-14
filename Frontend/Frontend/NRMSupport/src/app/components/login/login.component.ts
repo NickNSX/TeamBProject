@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 
@@ -9,7 +10,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private us:UserService) { }
+  constructor(private us:UserService, private route:Router) { }
 
   ngOnInit(): void {
   }
@@ -26,7 +27,7 @@ export class LoginComponent implements OnInit {
       (data:any) => {
         
         this.us.user = data;
-        // this.route.navigate(['users']);
+        this.route.navigate(['user']);
       },
 
       () => {
