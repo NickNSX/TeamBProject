@@ -26,14 +26,13 @@ export class LoginComponent implements OnInit {
       (data:any) => {
         
         this.us.user = data;
-        this.route.navigate(['users']);
+        // this.route.navigate(['users']);
       },
 
       () => {
         this.message = "Failed";
         this.invalidCred = false;
-        this.user.username = "";
-        this.user.password = "";
+        this.user = { };
       }
     );
   }
