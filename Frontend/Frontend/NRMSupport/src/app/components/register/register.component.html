@@ -6,28 +6,28 @@
             <div class="row">
                 <div class="form-floating mb-3 col">
                     <input type="text" class="form-control" placeholder="First Name"
-                        [(ngModel)]="registerUser.givenName">
+                        [(ngModel)]="registerUser.givenName" required>
                     <label for="floatingInput">First Name</label>
                 </div>
                 <div class="form-floating col">
-                    <input type="text" class="form-control" placeholder="Last Name" [(ngModel)]="registerUser.surname">
+                    <input type="text" class="form-control" placeholder="Last Name" [(ngModel)]="registerUser.surname" required>
                     <label for="floatingPassword">Last name</label>
                 </div>
             </div>
             <div class="row">
                 <div class="form-floating mb-3 col">
-                    <input type="email" class="form-control" placeholder="Email" [(ngModel)]="registerUser.email">
+                    <input type="email" class="form-control" placeholder="Email" [(ngModel)]="registerUser.email" required>
                     <label for="floatingInput">Email</label>
                 </div>
                 <div class="form-floating col">
                     <input type="password" class="form-control" placeholder="Password"
-                        [(ngModel)]="registerUser.password">
+                        [(ngModel)]="registerUser.password" required>
                     <label for="floatingPassword">Password</label>
                 </div>
             </div>
             <div class="row">
                 <div class="form-floating mb-3 col">
-                    <input type="text" class="form-control" placeholder="Username" [(ngModel)]="registerUser.username">
+                    <input type="text" class="form-control" placeholder="Username" [(ngModel)]="registerUser.username" required>
                     <label for="floatingInput">Username</label>
                 </div>
                 <div style="width: 50%;" class="input-group mb-3">

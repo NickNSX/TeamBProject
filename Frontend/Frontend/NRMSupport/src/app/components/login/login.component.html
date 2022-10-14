@@ -4,11 +4,11 @@
     <h2>{{message}}</h2>
     <div>
         <div class="user-box">
-            <input type="text" class="input" [(ngModel)]="user.username">
+            <input type="text" class="input" [(ngModel)]="user.username" required>
             <label>Username</label>
         </div>
         <div class="user-box">
-            <input type="password" [(ngModel)]="user.password">
+            <input type="password" [(ngModel)]="user.password" required>
             <label>Password</label>
         </div>
         <div [hidden]="invalidCred">
