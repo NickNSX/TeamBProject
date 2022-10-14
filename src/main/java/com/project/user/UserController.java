@@ -1,12 +1,9 @@
 package com.project.user;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,8 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.common.ResourceCreationResponse;
-
-import static com.project.common.SecurityUtils.*;
 @RestController
 @RequestMapping("/users")
 @CrossOrigin(origins = "http://localhost:4200/", allowCredentials = "true")
@@ -60,21 +55,14 @@ public class UserController {
 
         logger.info("A POST request was received by /users at {}", LocalDateTime.now());
 
-        // HttpSession userSession = req.getSession(false);
-        // enforceAuthentication(userSession);
-        // enforcePermissions(userSession, "Admin");
-
         return userService.register(requestBody);
     }    
 
     // Update user
     @PutMapping
-    public ArrayList<String> updateUser(@RequestBody UpdateUserRequest updateUser, HttpServletRequest req) {
+    public void updateUser(@RequestBody UpdateUserRequest updateUser, HttpServletRequest req) {
 
-        ArrayList<String> result = userService.updateUser(updateUser);
-
-        return result;
-        
+       userService.updateUser(updateUser);    
     }
 
     // Deactivate a user

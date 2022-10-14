@@ -23,6 +23,11 @@ public interface UserRepository extends JpaRepository<User, UUID> {
 
     @Modifying
     @Transactional
+    @Query(nativeQuery = true, value = "UPDATE ers_users SET username = ?1 WHERE user_id = ?2")
+    void updateUserUsername(String username, UUID userId);
+
+    @Modifying
+    @Transactional
     @Query(nativeQuery = true, value = "UPDATE ers_users SET email = ?1 WHERE user_id = ?2")
     void updateUserEmail(String email, UUID userId);
 
