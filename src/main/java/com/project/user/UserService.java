@@ -45,30 +45,30 @@ public class UserService {
             throw new InvalidRequestException("Provided request payload was null.");
         }
 
-        if (newUser.getGivenName() == null || newUser.getGivenName().length() <= 0 ||
-            newUser.getSurname() == null || newUser.getSurname().length() <= 0)
+        if (newUser.getGivenName() == null || newUser.getGivenName().trim().length() <= 0 ||
+            newUser.getSurname() == null || newUser.getSurname().trim().length() <= 0)
         {
             throw new InvalidRequestException("A non-empty given name and surname must be provided");
         }
 
-        if (newUser.getEmail() == null || newUser.getEmail().length() <= 0) {
+        if (newUser.getEmail() == null || newUser.getEmail().trim().length() <= 0) {
             throw new InvalidRequestException("A non-empty email must be provided.");
-        }
-
-        if (newUser.getUsername() == null || newUser.getUsername().length() < 4) {
-            throw new InvalidRequestException("A username with at least 4 characters must be provided.");
-        }
-
-        if (newUser.getPassword() == null || newUser.getPassword().length() < 8) {
-            throw new InvalidRequestException("A password with at least 8 characters must be provided.");
         }
 
         if (userRepo.existsByEmail(newUser.getEmail())) {
             throw new ResourcePersistenceException("Resource not persisted! The provided email is already taken.");
         }
 
+        if (newUser.getUsername() == null || newUser.getUsername().trim().length() < 4) {
+            throw new InvalidRequestException("A username with at least 4 characters must be provided.");
+        }
+        
         if (userRepo.existsByUsername(newUser.getUsername())) {
             throw new ResourcePersistenceException("Resource not persisted! The provided username is already taken.");
+        }
+
+        if (newUser.getPassword() == null || newUser.getPassword().trim().length() < 8) {
+            throw new InvalidRequestException("A password with at least 8 characters must be provided.");
         }
 
         User userToPersist = newUser.extractEntity();
@@ -76,17 +76,17 @@ public class UserService {
         if(newUser.getRole() != null) {
             if (newUser.getRole().toUpperCase().equals("ADMIN")) {
                 Role role = new Role();
-                role.setId(UUID.fromString("UUID for Admin")); // TODO add uuid for Admin 8-4-4-4-12
+                role.setId(UUID.fromString("eb2d4f19-9ea7-45de-9885-4cc65afe5388")); // TODO add uuid for Admin 8-4-4-4-12
                 role.setName("Admin");
                 userToPersist.setRole(role);
             } else if (newUser.getRole().toUpperCase().equals("FINANCE MANAGER")) {
                 Role role = new Role();
-                role.setId(UUID.fromString("UUID for Finance Manager")); // TODO add uuid for Finance Manager 8-4-4-4-12
+                role.setId(UUID.fromString("232b728d-8b96-4e87-afb2-7bd1fd2e333a")); // TODO add uuid for Finance Manager 8-4-4-4-12
                 role.setName("Finance Manager");
                 userToPersist.setRole(role);
             } else if (newUser.getRole().toUpperCase().equals("EMPLOYEE")) {
                 Role role = new Role();
-                role.setId(UUID.fromString("UUID for Employee")); // TODO add Employee uuid 8-4-4-4-12
+                role.setId(UUID.fromString("2031a1b1-cdee-4856-bbfe-07150b99c32f")); // TODO add Employee uuid 8-4-4-4-12
                 role.setName("Employee");
                 userToPersist.setRole(role);
             }else { // If given role does not match
@@ -94,13 +94,13 @@ public class UserService {
             }
         } else { // Default to employee if no given role
             Role role = new Role();
-            role.setId(UUID.fromString("UUID for Employee")); // TODO add Employee uuid 8-4-4-4-12
+            role.setId(UUID.fromString("2031a1b1-cdee-4856-bbfe-07150b99c32f")); // TODO add Employee uuid 8-4-4-4-12
             role.setName("Employee");
             userToPersist.setRole(role);
         }
 
         userRepo.save(userToPersist);
-        return new ResourceCreationResponse(userToPersist.getId().toString());
+        return new ResourceCreationResponse(userToPersist.getUserId().toString());
     }
 
     // Update user's information
@@ -110,19 +110,19 @@ public class UserService {
             throw new InvalidRequestException("Request is empty. Provide information.");
         }
 
-        if(!(userRepo.findUserByid(UUID.fromString(updateUser.getUserId())).isPresent())) {
+        if(!(userRepo.findUserByUserId(UUID.fromString(updateUser.getUserId())).isPresent())) {
             throw new ResourceNotFoundException("User not found with given Id.");
         }
 
         if (updateUser.getUsername() != null) {
-            if(!(userRepo.findUserByUsername(updateUser.getUsername()).isPresent())) {
+            if((userRepo.findUserByUsername(updateUser.getUsername()).isPresent())) {
                 throw new ResourcePersistenceException("Username already taken.");
             }
-            userRepo.updateUserEmail(updateUser.getEmail(), UUID.fromString(updateUser.getUserId()));
+            userRepo.updateUserUsername(updateUser.getUsername(), UUID.fromString(updateUser.getUserId()));
         }
 
         if (updateUser.getEmail() != null) {
-            if(!(userRepo.findUserByEmail(updateUser.getEmail())).isPresent()) {
+            if((userRepo.findUserByEmail(updateUser.getEmail())).isPresent()) {
                 throw new ResourcePersistenceException("Email already taken.");
             }
             userRepo.updateUserEmail(updateUser.getEmail(), UUID.fromString(updateUser.getUserId()));
@@ -142,25 +142,25 @@ public class UserService {
 
         if (updateUser.getRole() != null) {
             if (updateUser.getRole().toUpperCase().equals("EMPLOYEE")) {
-                userRepo.updateUserRole(UUID.fromString("UUID for Employee"), UUID.fromString(updateUser.getUserId())); // TODO enter uuid for employee
+                userRepo.updateUserRole(UUID.fromString("2031a1b1-cdee-4856-bbfe-07150b99c32f"), UUID.fromString(updateUser.getUserId())); // TODO enter uuid for employee
             } else if (updateUser.getRole().toUpperCase().equals("FINANCE MANAGER")) {
-                userRepo.updateUserRole(UUID.fromString("UUID for Finance Manager"), UUID.fromString(updateUser.getUserId())); // TODO enter uuid for Finance Manager
+                userRepo.updateUserRole(UUID.fromString("232b728d-8b96-4e87-afb2-7bd1fd2e333a"), UUID.fromString(updateUser.getUserId())); // TODO enter uuid for Finance Manager
             } else if (updateUser.getRole().toUpperCase().equals("ADMIN")) {
-                userRepo.updateUserRole(UUID.fromString("UUID for Admin"), UUID.fromString(updateUser.getUserId())); // TODO enter uuid for Admin
+                userRepo.updateUserRole(UUID.fromString("eb2d4f19-9ea7-45de-9885-4cc65afe5388"), UUID.fromString(updateUser.getUserId())); // TODO enter uuid for Admin
             } else {
-                throw new InvalidRequestException("Role not supported. Enter Employee, Finance Manager, Admin, or none.");
+                throw new InvalidRequestException("Role not supported. Enter Employee, Finance Manager, or Admin.");
             }
         }
 
     }
 
     // Set user's is active to false
-    public void deactivateUser(UpdateUserRequest updateUserRequest) {
+    public void deactivateUser(String userId) {
 
-        if (!(userRepo.findUserByid(UUID.fromString(updateUserRequest.getUserId())).isPresent())) {
+        if (!(userRepo.findUserByUserId(UUID.fromString(userId)).isPresent())) {
             throw new ResourceNotFoundException("User not found.");
         }
 
-        userRepo.updateUserIsActive(false, UUID.fromString(updateUserRequest.getUserId()));
+        userRepo.updateUserIsActive(false, UUID.fromString(userId));
     }
 }

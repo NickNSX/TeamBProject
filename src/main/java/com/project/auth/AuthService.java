@@ -46,8 +46,6 @@ public class AuthService {
             logger.warn("Invalid password provided at {}", LocalDateTime.now().format(format));
             throw new InvalidRequestException("The provided password must be at least 4 characters");
         }
-
-        //boolean active = userDAO.isActive(credentials.getUsername(), credentials.getPassword());
             
         UserResponse user = userRepository.findUserByUsernameAndPassword(credentials.getUsername(), credentials.getPassword())
                 .map(UserResponse :: new).orElseThrow(AuthenticationException::new);
@@ -55,15 +53,5 @@ public class AuthService {
         if (user.getIsActive() == false) {throw new AuthenticationException("User is inactive");}
 
         return user;
-
-        // logger.info("Checking if user is active at {}", LocalDateTime.now().format(format));
-        // if(active == true) {
-        //     return user;
-        // } else {
-        //     logger.warn("Inactive user tried to log in at {}", LocalDateTime.now().format(format));
-        //     throw new InvalidRequestException("User unable to log in due to inactive");
-        // }
-
-        
     }
 }
