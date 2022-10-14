@@ -49,7 +49,7 @@ public class ReimbController {
 
         UserResponse requester = (UserResponse) userSession.getAttribute("authUser");
 
-        return reimbService.getAllReimbById(UUID.fromString(requester.getId()));
+        return reimbService.getAllReimbById(UUID.fromString(requester.getUserId()));
     }
     
     // Create new request
@@ -63,7 +63,7 @@ public class ReimbController {
         
         UserResponse requester = (UserResponse) userSession.getAttribute("authUser");
         
-        return reimbService.createNewRequest(newRequest, UUID.fromString(requester.getId()));
+        return reimbService.createNewRequest(newRequest, UUID.fromString(requester.getUserId()));
     }
 
     @PutMapping(value="/employee")
@@ -129,7 +129,7 @@ public class ReimbController {
 
         UserResponse requester = (UserResponse) userSession.getAttribute("authUser");
 
-        reimbService.updateStatus(updateReimbStatus, UUID.fromString(requester.getId()));
+        reimbService.updateStatus(updateReimbStatus, UUID.fromString(requester.getUserId()));
     }
     
 }
