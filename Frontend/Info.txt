@@ -1,0 +1,28 @@
+Angular project
+
+# Create a new angular project
+ng new [name] --skip-git --routing
+
+# Create new components
+ng generate component components/[name]
+ng g c components/[name]
+
+# Create new services
+ng generate service services/[name]
+ng g s services/[name]
+
+ # Create a new class
+ng generate class models/[name]
+ng g cl models/[name]
+
+# To start
+ng serve -o
+
+# Install bootstrap
+npm install ngx-bootstrap --save
+-if doesn't work
+ng add ngx-bootstrap 
+-if error then this
+npm uninstall @schematics/angular
+npm install @schematics/angular@9.1.0
+ng add ngx-bootstrap 
