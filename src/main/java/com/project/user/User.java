@@ -16,7 +16,7 @@ import javax.persistence.Table;
 public class User {
     @Id // indicates a primary key
     @Column(name = "user_id") // all fields in an entity implicitly have @Column
-    private UUID id;
+    private UUID userId;
 
     @Column(name = "given_name", nullable = false)
     private String givenName;
@@ -45,8 +45,8 @@ public class User {
         super();
     }
 
-    public User(UUID id, String givenName, String surname, String email, String username, String password, Boolean isActive, Role role) {
-        this.id = id;
+    public User(UUID userId, String givenName, String surname, String email, String username, String password, Boolean isActive, Role role) {
+        this.userId = userId;
         this.givenName = givenName;
         this.surname = surname;
         this.email = email;
@@ -56,12 +56,12 @@ public class User {
         this.role = role;
     }
 
-    public UUID getId() {
-        return id;
+    public UUID getUserId() {
+        return userId;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
+    public void setUserId(UUID userId) {
+        this.userId = userId;
     }
 
     public String getGivenName() {
@@ -125,7 +125,7 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(givenName, user.givenName)
+        return Objects.equals(userId, user.userId) && Objects.equals(givenName, user.givenName)
             && Objects.equals(surname, user.surname) && Objects.equals(email, user.email) 
             && Objects.equals(username, user.username) && Objects.equals(password, user.password) 
             && Objects.equals(isActive, user.isActive) && Objects.equals(role, user.role);
@@ -133,13 +133,13 @@ public class User {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, givenName, surname, email, username, password, isActive, role);
+        return Objects.hash(userId, givenName, surname, email, username, password, isActive, role);
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "id='" + id + '\'' +
+                "userId='" + userId + '\'' +
                 ", givenName='" + givenName + '\'' +
                 ", surname='" + surname + '\'' +
                 ", email='" + email + '\'' +

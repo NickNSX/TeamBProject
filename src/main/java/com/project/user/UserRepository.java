@@ -14,12 +14,17 @@ import javax.transaction.Transactional;
 public interface UserRepository extends JpaRepository<User, UUID> {
     boolean existsByUsername(String username);
     boolean existsByEmail(String email);
-    Optional<User> findUserByid(UUID userId);
+    Optional<User> findUserByUserId(UUID userId);
     Optional<User> findUserByUsername(String username);
     Optional<User> findUserByEmail(String email);
 
     // @Query(nativeQuery = true, value = "SELECT * FROM app_users WHERE username = :1 AND password :2")
     Optional<User> findUserByUsernameAndPassword(String username, String password);
+
+    @Modifying
+    @Transactional
+    @Query(nativeQuery = true, value = "UPDATE ers_users SET username = ?1 WHERE user_id = ?2")
+    void updateUserUsername(String username, UUID userId);
 
     @Modifying
     @Transactional
