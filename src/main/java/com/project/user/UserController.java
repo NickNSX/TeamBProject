@@ -60,21 +60,14 @@ public class UserController {
 
         logger.info("A POST request was received by /users at {}", LocalDateTime.now());
 
-        // HttpSession userSession = req.getSession(false);
-        // enforceAuthentication(userSession);
-        // enforcePermissions(userSession, "Admin");
-
         return userService.register(requestBody);
     }    
 
     // Update user
     @PutMapping
-    public ArrayList<String> updateUser(@RequestBody UpdateUserRequest updateUser, HttpServletRequest req) {
+    public void updateUser(@RequestBody UpdateUserRequest updateUser, HttpServletRequest req) {
 
-        ArrayList<String> result = userService.updateUser(updateUser);
-
-        return result;
-        
+       userService.updateUser(updateUser);    
     }
 
     // Deactivate a user
