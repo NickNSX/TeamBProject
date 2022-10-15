@@ -1,0 +1,50 @@
+h1{
+    font-size: 190%;
+    font-family: 'Times New Roman', Times, serif;
+    text-align: center;    
+}
+
+body {
+    background-color: lightblue;
+  }
+
+
+form {
+
+    text-align: center;
+
+} 
+
+div{
+    text-align: center;
+}
+
+h1{
+  font-size: 190%;
+  font-family: 'Times New Roman', Times, serif;
+  text-align: center;    
+}
+
+body {
+  background-color: lightblue;
+}
+
+
+form {
+
+  text-align: center;
+
+} 
+
+div{
+  text-align: center;
+}
+
+#description {
+width: 320px;
+padding: 10px;
+border: 5px solid gray;
+margin: 0; 
+
+}
+

@@ -1,1 +1,67 @@
-<p>reimbursements works!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creating New Reimbursement</title>
+
+    <link rel="stylesheet" href="reimbursements.component.css">
+    <script>src=NewReimbursementUIJS.js</script>
+
+</head>
+
+
+<body>
+<h1> Create New Reimbursement Request</h1>
+<br>
+<br>
+
+<form>
+
+  
+  
+
+    <label for="amount">Amount Of Reimbursement:</label><br>
+    <input type="number" id="amount" name="amount"><br>
+
+    <br>
+    <br>
+    
+    <div>
+    <label for="description">Description:</label><br>
+    <input type="text" id="description" name="description" style="width: 300px; height: 100px;" rows="4" cols="50"><br>
+    </div> 
+
+    <br>
+    <br>
+
+    <div>
+      <label for="type">Reimbursement Type:</label>
+      <input type="radio" id="travel" name="Reimbursement Type" value="Travel">
+      <label for="travel">TRAVEL</label>
+      <input type="radio" id="food" name="Reimbursement Type" value="Food">
+      <label for="food">FOOD</label>
+      <input type="radio" id="lodge" name="Reimbursement Type" value="Lodge">
+      <label for="lodge">LODGE</label>
+      <input type="radio" id="other" name="Reimbursement Type" value="Other">
+      <label for="other">OTHER</label>
+    </div>
+
+    <br>
+    <br>
+    <div>
+    <input type="submit" id="submit" name="Reimbursement Type" value="Submit">
+    <input type="reset"  id="resetForm" name="Reset Form" value="Reset Form">
+    </div>
+    
+    
+  </form>
+
+
+ 
+
+
+    
+</body>
+</html>
