@@ -13,28 +13,32 @@
         </ul>
     </div>
     <div class="card" [hidden]="adminAccess">
-        <ul><b>Number of Pending Active status:</b>&nbsp;{{falseN}}</ul>
+        <ul><b>Number of Pending Active status:</b>&nbsp;{{falseN}}
+            <button id="btn1" (click)="switchView()">Show all inactive users</button><br>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" (click)="search()" name="inlineRadioOptions"
+                    id="inlineRadio2">
+                <label class="form-check-label" for="inlineRadio2">Show All Users</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" (click)="searchByUserId()" name="inlineRadioOptions"
+                    id="inlineRadio1">
+                <label class="form-check-label" for="inlineRadio1">Search by UserId</label>
+            </div>
+            <div id="search" [hidden]="option1">
+                <label for="idToSearch">Enter id to search:</label>&nbsp;
+                <input type="text" [(ngModel)]="idToSearch">
+                <button id="btn2" (click)="search()">Search</button>
+                <p [hidden]="error">{{errorMessage}}</p>
+            </div>
+        </ul>
     </div>
 </div>
 
 <div [hidden]="adminAccess">
-    <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" (click)="searchByUserId()" name="inlineRadioOptions"
-            id="inlineRadio1">
-        <label class="form-check-label" for="inlineRadio1">Search by UserId</label>
-    </div>
-    <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" (click)="search()" name="inlineRadioOptions" id="inlineRadio2">
-        <label class="form-check-label" for="inlineRadio2">Show All Users</label>
-    </div>
-    <div id="search" [hidden]="option1">
-        <label for="idToSearch">Enter id to search:</label>&nbsp;
-        <input type="text" [(ngModel)]="idToSearch">&nbsp;
-        <button (click)="search()">Search</button>
-        <p [hidden]="error">{{errorMessage}}</p>
-    </div>
+    <p id="p1">{{displayMessage}}</p>
     <div class="grid-container">
-        <div class="card" *ngFor="let user of userArray">
+        <div class="card" *ngFor="let user of userArray" [hidden]="showAll">
             <ul>
                 <h5>{{user.givenName}}&nbsp;{{user.surname}}</h5>
                 <li><b>Id:</b>&nbsp;{{user.userId}}</li>
@@ -47,7 +51,7 @@
                 <button (click)="changeActive(user.userId, user.isActive)">Change Active</button>
                 <button (click)="openForm(user.userId)">Edit</button>
                 <div class="form-popup" id="myForm" [hidden]="hideForm">
-                    <form  class="form-container">
+                    <form class="form-container">
 
                         <h3>Enter New Info</h3>
                         <label for="givenName"><b>Given Name</b></label>
@@ -65,8 +69,49 @@
                         <label for="role"><b>Role</b></label>
                         <input type="text" placeholder="Role" name="role" [(ngModel)]="updateInfo.role">
 
-                        <button style="width: 90%;" type="submit" class="btn" (click)="update(user.userId)">Update</button>
-                        <button style="width: 90%;" type="button" class="btn cancel" (click)="closeForm()">Close</button>
+                        <button style="width: 90%;" type="submit" class="btn"
+                            (click)="update(user.userId)">Update</button>
+                        <button style="width: 90%;" type="button" class="btn cancel"
+                            (click)="closeForm()">Close</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="card" *ngFor="let user of inActiveUser" [hidden]="showNonActive">
+            <ul>
+                <h5>{{user.givenName}}&nbsp;{{user.surname}}</h5>
+                <li><b>Id:</b>&nbsp;{{user.userId}}</li>
+                <li><b>Username:</b>&nbsp;{{user.username}}</li>
+                <li><b>Email:</b>&nbsp;{{user.email}}</li>
+                <li><b>Is Active:</b>&nbsp;{{user.isActive}}</li>
+                <li><b>Role:</b>&nbsp;{{user.role}}</li>
+            </ul>
+            <div class="cardButton">
+                <button (click)="changeActive(user.userId, user.isActive)">Change Active</button>
+                <button (click)="openForm(user.userId)">Edit</button>
+                <div class="form-popup" id="myForm" [hidden]="hideForm">
+                    <form class="form-container">
+
+                        <h3>Enter New Info</h3>
+                        <label for="givenName"><b>Given Name</b></label>
+                        <input type="text" placeholder="Given Name" name="givenName" [(ngModel)]="updateInfo.givenName">
+
+                        <label for="surname"><b>Surname</b></label>
+                        <input type="text" placeholder="Surname" name="surname" [(ngModel)]="updateInfo.surname">
+
+                        <label for="email"><b>Email</b></label>
+                        <input type="text" placeholder="Email" name="email" [(ngModel)]="updateInfo.email">
+
+                        <label for="username"><b>Username</b></label>
+                        <input type="text" placeholder="Username" name="username" [(ngModel)]="updateInfo.username">
+
+                        <label for="role"><b>Role</b></label>
+                        <input type="text" placeholder="Role" name="role" [(ngModel)]="updateInfo.role">
+
+                        <button style="width: 90%;" type="submit" class="btn"
+                            (click)="update(user.userId)">Update</button>
+                        <button style="width: 90%;" type="button" class="btn cancel"
+                            (click)="closeForm()">Close</button>
                     </form>
                 </div>
             </div>

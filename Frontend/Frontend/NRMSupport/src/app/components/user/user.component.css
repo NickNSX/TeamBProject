@@ -2,14 +2,10 @@ h3 {
     margin-left: 20px;
 }
 
-#search input {
-    width: 5%;
-}
-
-#search {
+/* #search {
     margin-left: 20px;
     padding-bottom: 5px;
-}
+} */
 
 .grid-container {
     display: flex;
@@ -19,6 +15,14 @@ h3 {
     gap: 5%;
     display: inline-grid;
     grid-template-columns: repeat(3, 1fr);
+}
+
+#p1 {
+  margin-top: -20px;
+  margin-bottom: -35px;
+  margin-left: 7%;
+  font-weight: 500;
+  font-size: 25px;
 }
 
 .card {
@@ -31,12 +35,33 @@ h3 {
     color: black;
 }
 
-.card button{
-    margin-left: 20px;
-    border-radius: 15%;
+.card button {
+    border-radius: 10px;
     text-align: center;
-    width: 120px;
-    margin-bottom: 2px;
+    width: 130px;
+    margin-bottom: 4px;
+    margin-left: 14px;
+}
+
+.card #btn1 {
+  margin-left: 0px;
+  width: 180px;
+  /* background-color: transparent; */
+}
+
+/* .card #btn1:hover {
+  background: #8F7CEC;
+  color: #fff;
+  box-shadow: 0 0 5px #8F7CEC, 0 0 10px #8F7CEC, 0 0 15px #8F7CEC, 0 0 20px #8F7CEC;
+} */
+
+#search button {
+  width: 80px;
+  margin-left: 4px;
+}
+
+#search input {
+  border-radius: 10px;
 }
 
 .card .cardButton {

@@ -42,11 +42,14 @@ export class UserComponent implements OnInit {
   error:boolean = true;
   hideForm:boolean = true;
   loggedIn:boolean = true;
+  showAll:boolean = true;
+  showNonActive:boolean = true;
   
   message:string = "";
   id:string = "";
   errorMessage:string = "";
   idToSearch:string = "";
+  displayMessage:string = "";
   
   falseN:number = 0;
   inActiveUser:any = [];
@@ -54,12 +57,21 @@ export class UserComponent implements OnInit {
 
   updateInfo:User = { }
 
-
   search() {
+
+    this.showAll = false;
+    this.showNonActive = true;
+    this.option1 = true;
 
     for (let i = this.userArray.length - 1; i >= 0; i--) {
       this.userArray.pop();
     };
+
+    if (this.idToSearch.length > 0) {
+      this.displayMessage = "Searched User:";
+    } else {
+      this.displayMessage = "Searched Users:"
+    }
 
     this.us.search(this.idToSearch).subscribe(
       (data:any) => {
@@ -120,7 +132,9 @@ export class UserComponent implements OnInit {
   }
 
   searchByUserId() {
-
+    this.showNonActive = true;
+    this.showAll = false;
+    this.displayMessage = "";
     if (this.userArray.length > 0) {
       for (let i = this.userArray.length - 1; i >= 0; i--) {
         this.userArray.pop();
@@ -128,10 +142,9 @@ export class UserComponent implements OnInit {
     }
     if (this.option1 != false) {
       setTimeout(() => {
-        this.option1 = false}, 100);
+        this.option1 = false}, 50);
     }
   }
-
 
   openForm(userId:string) {
     this.hideForm = false;
@@ -140,6 +153,16 @@ export class UserComponent implements OnInit {
   
   closeForm() {
     this.hideForm = true;
+  }
+  
+  switchView() {
+    this.showAll = true;
+    this.showNonActive = false;
+    if (this.falseN > 1) {
+      this.displayMessage = "In Active User:";
+    } else {
+      this.displayMessage = "In Active Users:"
+    }
   }
 
   falseNumb() {
