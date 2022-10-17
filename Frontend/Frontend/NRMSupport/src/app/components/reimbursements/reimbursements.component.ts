@@ -10,11 +10,6 @@ export class ReimbursementsComponent implements OnInit {
 
   constructor() { }
 
-
-  ngOnInit(): void {
-  }
-
-
   ngOnInit(): void { }
 
   submitMessage:string = "";
