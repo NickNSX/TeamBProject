@@ -6,11 +6,23 @@ import com.project.common.Request;
 
 public class NewRequest implements Request<Reimbursement> {
 
+    // Added
+    private String userId;
+
     private double amount;
     private String description;
 
     // Used as a string to set the type in ReimbService
     private String type;
+
+    // Added
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
     public double getAmount() {
         return amount;
@@ -47,6 +59,7 @@ public class NewRequest implements Request<Reimbursement> {
     @Override
     public Reimbursement extractEntity() {
         Reimbursement extractedEntity = new Reimbursement();
+        extractedEntity.setAuthorId(UUID.fromString(this.userId)); // Add
         extractedEntity.setId(UUID.randomUUID());
         extractedEntity.setAmount(this.amount);
         extractedEntity.setDescription(this.description);

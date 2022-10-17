@@ -26,10 +26,10 @@ public class ReimbService {
     }
 
     // Get reimbursements by author's id
-    public List<ReimbResponse> getAllReimbById  (UUID id) {
+    public List<ReimbResponse> getAllReimbById  (String id) {
 
         List<ReimbResponse> result = new ArrayList<>();
-        List<Reimbursement> reimb = reimbRepo.findReimbByAuthorId(id);
+        List<Reimbursement> reimb = reimbRepo.findReimbByAuthorId(UUID.fromString(id));
 
         if (reimb.isEmpty()) {
             throw new ResourceNotFoundException();
@@ -63,12 +63,12 @@ public class ReimbService {
     // Get reimbursement by status
     public List<ReimbResponse> getAllReimbursementsByStatus(String status) {
 
-        if (status.toUpperCase().equals("APPROVE")) {
-            status = "UUID for Approve"; // TODO Enter UUID for Approve
+        if (status.toUpperCase().equals("APPROVED")) {
+            status = "4811472a-8c9e-404c-9e0e-da6f537f5278"; // TODO Enter UUID for Approve 8-4-4-4-12
         } else if (status.toUpperCase().equals("DENIED")) {
-            status = "UUID for Deined"; // TODO Enter UUID for Denied
+            status = "73e6d2a2-d6b5-4898-82a1-a6da9734aaae"; // TODO Enter UUID for Denied 8-4-4-4-12
         } else if (status.toUpperCase().equals("PENDING")) {
-            status = "UUID for Pending"; // TODO Enter UUID for Pending
+            status = "01569ed5-a8e6-49b8-ad61-9c9b77324eb4"; // TODO Enter UUID for Pending 8-4-4-4-12
         } else {
             throw new InvalidRequestException("Status must be Approve, Denied, or Pending");
         }
@@ -88,23 +88,23 @@ public class ReimbService {
     }
 
     // Create a new reimbursement request
-    public ResourceCreationResponse createNewRequest(NewRequest newRequest, UUID authorId) {
+    public ResourceCreationResponse createNewRequest(NewRequest newRequest) {
 
-        if (newRequest.getAmount() == 0 || newRequest.getAmount() > 10000 || newRequest.getDescription() == null || newRequest.getType() == null) {
+        if (newRequest.getAmount() == 0 || newRequest.getAmount() >= 10000 || newRequest.getDescription() == null || newRequest.getType() == null) {
             throw new InvalidRequestException("Must provide an amount between 0 and 10,000, a description, and a type.");
         }
 
         Reimbursement insertRequest = newRequest.extractEntity();
 
-        // Set the author id from the login user
-        insertRequest.setAuthorId(authorId);
+        //! Set the author id from the login user
+        // insertRequest.setAuthorId(authorId);
 
         // Set the submitted time to now
         insertRequest.setSubmitted(LocalDateTime.now());
 
         // Defaults the status to pending
         Status status = new Status();
-        status.setStatusId(UUID.fromString("UUID for Pending")); // TODO add uuid for Pending 8-4-4-4-12
+        status.setStatusId(UUID.fromString("01569ed5-a8e6-49b8-ad61-9c9b77324eb4")); // TODO add uuid for Pending 8-4-4-4-12
         status.setStatus("Pending");
         insertRequest.setStatusId(status);
 
@@ -113,7 +113,7 @@ public class ReimbService {
         if (newRequest.getType().toUpperCase().equals("OTHER")){
             
             Type type = new Type();
-            type.setTypeId(UUID.fromString("UUID for Other")); // TODO add uuid for Other 8-4-4-4-12
+            type.setTypeId(UUID.fromString("2d416f96-7c15-4940-bac5-9b7d9cbffcba")); // TODO add uuid for Other 8-4-4-4-12
             type.setType("Other");
             insertRequest.setTypeId(type);
         }
@@ -121,7 +121,7 @@ public class ReimbService {
         if (newRequest.getType().toUpperCase().equals("TRAVEL")){
             
             Type type = new Type();
-            type.setTypeId(UUID.fromString("UUID for Travel")); // TODO add uuid for Travel 8-4-4-4-12
+            type.setTypeId(UUID.fromString("10f02a42-1fac-499b-a30e-f24529435fc5")); // TODO add uuid for Travel 8-4-4-4-12
             type.setType("Travel");
             insertRequest.setTypeId(type);
         }
@@ -129,7 +129,7 @@ public class ReimbService {
         if (newRequest.getType().toUpperCase().equals("FOOD")){
             
             Type type = new Type();
-            type.setTypeId(UUID.fromString("UUID for Food")); // TODO add uuid for Food 8-4-4-4-12
+            type.setTypeId(UUID.fromString("b8c2f65e-468f-4f46-bdf1-614487a0d75f")); // TODO add uuid for Food 8-4-4-4-12
             type.setType("Food");
             insertRequest.setTypeId(type);
         }
@@ -137,7 +137,7 @@ public class ReimbService {
         if (newRequest.getType().toUpperCase().equals("LODGING")){
             
             Type type = new Type();
-            type.setTypeId(UUID.fromString("UUID for Lodging")); // TODO add uuid for Lodging 8-4-4-4-12
+            type.setTypeId(UUID.fromString("f5285b8a-a4fb-40e4-b0c3-0b08ff271e51")); // TODO add uuid for Lodging 8-4-4-4-12
             type.setType("Lodging");
             insertRequest.setTypeId(type);
         }
@@ -149,28 +149,30 @@ public class ReimbService {
     }
 
     // Update the status
-    public void updateStatus(UpdateReimbRequest updateReimbRequest, UUID resolverId) {
+    public void updateStatus(UpdateReimbRequest updateReimbRequest) {
 
         // Check if Reimbursement exists
         if(!reimbRepo.findReimbByReimbId(UUID.fromString(updateReimbRequest.getReimbId())).isPresent()) {
             throw new InvalidRequestException("Reimbursement not found.");
         }
-        if(reimbRepo.findReimbByReimbId(UUID.fromString(updateReimbRequest.getReimbId())).get().getAuthorId().equals(resolverId)) {
-            throw new InvalidRequestException("Can not change the status of own request.");
-        }
+        //! Remove
+        // if(reimbRepo.findReimbByReimbId(UUID.fromString(updateReimbRequest.getReimbId())).get().getAuthorId().equals(resolverId)) {
+        //     throw new InvalidRequestException("Can not change the status of own request.");
+        // }
 
         // TODO Apply the uuid for the status
         if (updateReimbRequest.getStatus().toUpperCase().equals("APPROVED")) {
-            updateReimbRequest.setStatus("UUID for Approved"); // TODO add uuid for Approved 8-4-4-4-12
+            updateReimbRequest.setStatus("4811472a-8c9e-404c-9e0e-da6f537f5278"); // TODO add uuid for Approved 8-4-4-4-12
         } else if (updateReimbRequest.getStatus().toUpperCase().equals("DENIED")) {
-            updateReimbRequest.setStatus("UUID for denied"); // TODO add uuid for Denied 8-4-4-4-12
+            updateReimbRequest.setStatus("73e6d2a2-d6b5-4898-82a1-a6da9734aaae"); // TODO add uuid for Denied 8-4-4-4-12
         } else {
             throw new InvalidRequestException("Status not found. Enter 'Approved' or 'Denied'.");
         }
 
         LocalDateTime resolved = LocalDateTime.now();
 
-        reimbRepo.setStatus(resolverId, resolved, UUID.fromString(updateReimbRequest.getStatus()), UUID.fromString(updateReimbRequest.getReimbId()));
+        // Changed
+        reimbRepo.setStatus(UUID.fromString(updateReimbRequest.getResolverId()), resolved, UUID.fromString(updateReimbRequest.getStatus()), UUID.fromString(updateReimbRequest.getReimbId()));
     }
 
     public void updateReimb (UpdateReimbRequest updateReimbRequest) {
@@ -184,19 +186,21 @@ public class ReimbService {
         
         if (updateReimbRequest.getAmount() > 0 && updateReimbRequest.getAmount() < 10000) {
             reimbRepo.updateReimbAmount(updateReimbRequest.getAmount(), UUID.fromString(updateReimbRequest.getReimbId()));
+        } else if (updateReimbRequest.getAmount() > 10000) {
+            throw new InvalidRequestException("Amount must be between 0 and 10000.");
         }
         if (updateReimbRequest.getDescription() != null) {
             reimbRepo.updateReimbDescription(updateReimbRequest.getDescription(), UUID.fromString(updateReimbRequest.getReimbId()));
         }
         if(updateReimbRequest.getType() != null) {
             if (updateReimbRequest.getType().toUpperCase().equals("LODGING")) {
-                updateReimbRequest.setType("UUID for Lodging"); // TODO add UUID for lodging
-            } else if (updateReimbRequest.getType().toUpperCase().equals("Food")) {
-                updateReimbRequest.setType("UUID for Food"); //TODO add UUID for food
-            } else if (updateReimbRequest.getType().toUpperCase().equals("Travel")) {
-                updateReimbRequest.setType("UUID for Travel"); // TODO add UUID for Travel
+                updateReimbRequest.setType("f5285b8a-a4fb-40e4-b0c3-0b08ff271e51"); // TODO add UUID for lodging
+            } else if (updateReimbRequest.getType().toUpperCase().equals("FOOD")) {
+                updateReimbRequest.setType("b8c2f65e-468f-4f46-bdf1-614487a0d75f"); //TODO add UUID for food
+            } else if (updateReimbRequest.getType().toUpperCase().equals("TRAVEL")) {
+                updateReimbRequest.setType("10f02a42-1fac-499b-a30e-f24529435fc5"); // TODO add UUID for Travel
             } else {
-                updateReimbRequest.setType("UUID for Other"); // TODO add UUID for Other
+                updateReimbRequest.setType("2d416f96-7c15-4940-bac5-9b7d9cbffcba"); // TODO add UUID for Other
             }
             reimbRepo.updateReimbType(UUID.fromString(updateReimbRequest.getType()), UUID.fromString(updateReimbRequest.getReimbId()));
         }
