@@ -8,17 +8,33 @@
 
 
 
-    <label for="amount">Amount Of Reimbursement:</label><br>
-    <input type="number" id="amount" name="amount"><br>
+
+
+<br>
+<br>
+
+<form #reimbursements = "ngForm" (ngSubmit) = "onClickSubmit(reimbursements.value)">
+
+  
+  <h1> Create New Reimbursement Request</h1> 
+
+    <label for="amount">Amount:</label><br>
+    <input type=”number” [(ngModel)] = “amount”/><br>
 
     <br>
     <br>
 
     <div>
+
+    <label for="description">Description:</label><br>
+    <input type="text" id="description" [(ngModel))] = "description" style="width: 300px; height: 100px;" rows="4" cols="50"><br>
+    </div> 
+
       <label for="description">Description:</label><br>
       <input type="text" id="description" name="description" style="width: 300px; height: 100px;" rows="4"
         cols="50"><br>
     </div>
+
 
     <br>
     <br>
@@ -38,11 +54,22 @@
     <br>
     <br>
     <div>
+
+    <input type="submit" id="submit" (click) = “submitFunction()” name="Reimbursement Type" value="Submit">
+    <input type="reset"  id="resetForm" name="Reset Form" value="Reset Form">
+    </div>
+    
+    
+  </form>
+
+ 
+
       <input type="submit" id="submit" name="Reimbursement Type" value="Submit" (click)="domFunction()">
       <input type="reset" id="resetForm" name="Reset Form" value="Reset Form">
       <br>
       <p>{{submitMessage}}</p>
     </div>
+
 
 
   </form>

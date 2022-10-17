@@ -18,14 +18,20 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     RegisterComponent,
     LoginComponent,
     UserComponent,
-    NavbarComponent
+    NavbarComponent,
+    
+
   ],
+
+
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule
+
   ],
+
   providers: [],
   bootstrap: [AppComponent]
 })
