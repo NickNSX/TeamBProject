@@ -13,10 +13,14 @@ export class ReimbursementsComponent implements OnInit {
   ngOnInit(): void { }
 
   submitMessage:string = "";
+  description:string = "";
+  type:string = "";
+
+  amount:number = 0;
 
   submit:any = document.getElementById("submit");
 
-  domFunction() {
+  submitFunction() {
     this.submitMessage = "Your Reimbursement Request Has Been Submitted!";
   }
  
