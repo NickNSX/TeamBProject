@@ -2,14 +2,13 @@ package com.project.reimbursement;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,12 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.common.ResourceCreationResponse;
-import com.project.user.UserResponse;
-
-import static com.project.common.SecurityUtils.*;
 
 @RestController
 @RequestMapping("/reimb")
+@CrossOrigin(origins = "http://localhost:4200/", allowCredentials = "true")
 public class ReimbController {
 
     private static Logger logger = LogManager.getLogger(ReimbController.class);
@@ -36,100 +33,70 @@ public class ReimbController {
         this.reimbService = reimbService;
     }
 
-    // Open for all employees
+    //* Open for all employees
 
-    // Get all reimbursements for the login user
-    @GetMapping(produces = "application/json")
-    public List<ReimbResponse> getAllReimbById(HttpServletRequest req) {
+    //? Get all reimbursements for the login user
+    @GetMapping(value="/employee/{id}", produces = "application/json")
+    public List<ReimbResponse> getAllReimbById(@PathVariable String id) {
 
-        logger.info("A GET request was received by /reimb at {}", LocalDateTime.now());
-        HttpSession userSession = req.getSession(false);
+        logger.info("A GET request was received by /reimb/employee/{id} at {}", LocalDateTime.now());
 
-        enforceAuthentication(userSession);
-
-        UserResponse requester = (UserResponse) userSession.getAttribute("authUser");
-
-        return reimbService.getAllReimbById(UUID.fromString(requester.getId()));
-    }
+        return reimbService.getAllReimbById(id);
+    } 
     
-    // Create new request
+    //? Create new request
     @PostMapping(consumes = "application/json", produces = "application/json")
-    public ResourceCreationResponse newRequest(@RequestBody NewRequest newRequest, HttpServletRequest req) {
+    public ResourceCreationResponse newRequest(@RequestBody NewRequest newRequest) {
         
         logger.info("A POST request was received by /reimb at {}", LocalDateTime.now());
-        HttpSession userSession = req. getSession(false);
 
-        enforceAuthentication(userSession);
-        
-        UserResponse requester = (UserResponse) userSession.getAttribute("authUser");
-        
-        return reimbService.createNewRequest(newRequest, UUID.fromString(requester.getId()));
-    }
+        return reimbService.createNewRequest(newRequest);
+    } 
 
     @PutMapping(value="/employee")
-    public void updateReimb(@RequestBody UpdateReimbRequest updateReimbRequest, HttpServletRequest req) {
+    public void updateReimb(@RequestBody UpdateReimbRequest updateReimbRequest) {
         
-        HttpSession userSession = req.getSession(false);
-
-        enforceAuthentication(userSession);
-
+        logger.info("A PUT request was received by /reimb/employee at {}", LocalDateTime.now());
+        
         reimbService.updateReimb(updateReimbRequest);
-    }
+    } 
     
-    // Manager access
+    //* Manager access
 
-    // Search for reimbursements by reimbursements id
+    //? Search for reimbursements by reimbursements id
     @GetMapping(value = "/{id}", produces = "application/json")
-    public ReimbResponse getReimbById(@PathVariable String id, HttpServletRequest req) {
+    public ReimbResponse getReimbById(@PathVariable String id) {
 
         logger.info("A GET request was received by /reimb/{id} at {}", LocalDateTime.now());
-        HttpSession userSession = req.getSession(false);
-
-        enforceAuthentication(userSession);
-        enforcePermissions(userSession, "FINANCE MANAGER");
         
         return reimbService.getReimbById(id);
-    }
+    } 
 
-    // Get all reimbursements
+    //? Get all reimbursements
     @GetMapping(value ="/manager", produces = "application/json")
     public List<ReimbResponse> getAllReimbursements(HttpServletRequest req) {
 
         logger.info("A GET request was received by /reimb/manager at {}", LocalDateTime.now());
-        HttpSession userSession = req.getSession(false);
-
-        enforceAuthentication(userSession);
-        enforcePermissions(userSession, "FINANCE MANAGER");
 
         return reimbService.getAllReimbursements();
-    }
+    } 
 
-    // Get reimbursement by status
+    //? Get reimbursement by status
     @GetMapping(value ="/status/{status}", produces = "application/json")
     public List<ReimbResponse> getAllReimbursementsByStatus(@PathVariable String status, HttpServletRequest req) {
 
         logger.info("A GET request was received by /reimb/status/{status} at {}", LocalDateTime.now());
-        HttpSession userSession = req.getSession(false);
-
-        enforceAuthentication(userSession);
-        enforcePermissions(userSession, "FINANCE MANAGER");
 
         return reimbService.getAllReimbursementsByStatus(status);
-    }
+    } 
 
-    // Finance Manger can update reimbursement status
+    //? Finance Manger can update reimbursement status
     @PutMapping(value="/manager")
     public void updateReimbStatus(@RequestBody UpdateReimbRequest updateReimbStatus, HttpServletRequest req) {
 
         logger.info("A PUT request was received by /reimb/manager at {}", LocalDateTime.now());
-        HttpSession userSession = req.getSession(false);
-        
-        enforceAuthentication(userSession);
-        enforcePermissions(userSession, "Finance Manager");
 
-        UserResponse requester = (UserResponse) userSession.getAttribute("authUser");
-
-        reimbService.updateStatus(updateReimbStatus, UUID.fromString(requester.getId()));
-    }
+        reimbService.updateStatus(updateReimbStatus);
+    } 
     
 }
