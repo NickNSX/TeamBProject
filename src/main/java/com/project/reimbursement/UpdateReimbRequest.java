@@ -15,6 +15,9 @@ public class UpdateReimbRequest implements Request<Reimbursement> {
     private String description;
     private String type;
 
+    // Add
+    private String resolverId;
+
     
     public void setDescription(String description) {
         this.description = description;
@@ -54,6 +57,15 @@ public class UpdateReimbRequest implements Request<Reimbursement> {
 
     public void setReimbId(String reimbId) {
         this.reimbId = reimbId;
+    }
+
+    // Add
+    public String getResolverId() {
+        return resolverId;
+    }
+
+    public void setResolverId(String resolverId) {
+        this.resolverId = resolverId;
     }
     
     @Override
