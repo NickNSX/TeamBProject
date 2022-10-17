@@ -1,4 +1,5 @@
-<div class="body">
+<p [hidden]="loginMessage"><b>Not Logged In</b></p>
+<div class="body" [hidden]="loginIn">
 
   <form >
 
@@ -6,7 +7,7 @@
     <h1> Create New Reimbursement Request</h1>
 
     <label for="amount">Amount:</label><br>
-    <input type=”number” [(ngModel)]="amount"><br>
+    <input type=”number” name="amount" placeholder="Max of 10,000" [(ngModel)]="createReq.amount"><br>
 
     <br>
     <br>
@@ -14,18 +15,18 @@
     <div>
 
       <label for="description">Description:</label><br>
-      <input type="text" id="description" style="width: 300px; height: 100px;" [(ngModel)]="description"><br>
+      <input type="text" id="description" name="description" style="width: 300px; height: 100px;" [(ngModel)]="createReq.description"><br>
     </div>
 
     <div>
       <label for="type">Reimbursement Type:</label>
-      <input type="radio" id="travel" name="Reimbursement Type" value="Travel" [(ngModel)]="type">
+      <input type="radio" id="travel" name="type" value="Travel" [(ngModel)]="createReq.type_id">
       <label for="travel">TRAVEL</label>
-      <input type="radio" id="food" name="Reimbursement Type" value="Food" [(ngModel)]="type">
+      <input type="radio" id="food" name="type" value="Food" [(ngModel)]="createReq.type_id">
       <label for="food">FOOD</label>
-      <input type="radio" id="lodge" name="Reimbursement Type" value="Lodge" [(ngModel)]="type">
+      <input type="radio" id="lodge" name="type" value="Lodge" [(ngModel)]="createReq.type_id">
       <label for="lodge">LODGE</label>
-      <input type="radio" id="other" name="Reimbursement Type" value="Other" [(ngModel)]="type">
+      <input type="radio" id="other" name="type" value="Other" [(ngModel)]="createReq.type_id">
       <label for="other">OTHER</label>
     </div>
 
@@ -33,7 +34,7 @@
     <br>
     <div>
 
-      <input type="submit" id="submit" name="Reimbursement Type" value="Submit" (click)="submitFunction()">
+      <input type="submit" id="submit" name="type" value="Submit" (click)="submitFunction()">
       <input type="reset" id="resetForm" name="Reset Form" value="Reset Form">
       <p>{{submitMessage}}</p>
     </div>
