@@ -7,7 +7,7 @@
     <h1> Create New Reimbursement Request</h1>
 
     <label for="amount">Amount:</label><br>
-    <input type=”number” name="amount" placeholder="Max of 10,000" [(ngModel)]="createReq.amount"><br>
+    <input type=”number” name="amount" placeholder="Max of 10,000" [(ngModel)]="newReq.amount"><br>
 
     <br>
     <br>
@@ -15,18 +15,18 @@
     <div>
 
       <label for="description">Description:</label><br>
-      <input type="text" id="description" name="description" style="width: 300px; height: 100px;" [(ngModel)]="createReq.description"><br>
+      <input type="text" id="description" name="description" style="width: 300px; height: 100px;" [(ngModel)]="newReq.description"><br>
     </div>
 
     <div>
       <label for="type">Reimbursement Type:</label>
-      <input type="radio" id="travel" name="type" value="Travel" [(ngModel)]="createReq.type_id">
+      <input type="radio" id="travel" name="type" value="Travel" [(ngModel)]="newReq.type">
       <label for="travel">TRAVEL</label>
-      <input type="radio" id="food" name="type" value="Food" [(ngModel)]="createReq.type_id">
+      <input type="radio" id="food" name="type" value="Food" [(ngModel)]="newReq.type">
       <label for="food">FOOD</label>
-      <input type="radio" id="lodge" name="type" value="Lodge" [(ngModel)]="createReq.type_id">
+      <input type="radio" id="lodge" name="type" value="Lodge" [(ngModel)]="newReq.type">
       <label for="lodge">LODGE</label>
-      <input type="radio" id="other" name="type" value="Other" [(ngModel)]="createReq.type_id">
+      <input type="radio" id="other" name="type" value="Other" [(ngModel)]="newReq.type">
       <label for="other">OTHER</label>
     </div>
 
@@ -37,6 +37,7 @@
       <input type="submit" id="submit" name="type" value="Submit" (click)="submitFunction()">
       <input type="reset" id="resetForm" name="Reset Form" value="Reset Form">
       <p>{{submitMessage}}</p>
+      <p>ReimbId: {{reimbId}}</p>
     </div>
 
   </form>
