@@ -1,0 +1,40 @@
+<div class = "padding" [hidden] = "hiddenStart">
+    <div class = "textbox-card">
+
+        <h2> Enter author ID:</h2>
+        <p>  </p>
+            <div class = "textbox" > 
+                <input id= "textbox"  type="text" style="width: 200px;" >
+            </div>
+    
+            
+            
+    </div>
+
+    
+</div>
+
+<div [hidden] = "hiddenGrid">
+    <div class ="grid-cont" >
+
+        <div *ngFor="let ReimSingle of remiArray" class = "Reimbursement">
+            <h3> Reimbursement</h3>
+            <p>Amount: ${{ReimSingle.Amount}}</p>
+            <p>Submitted: {{ReimSingle.Submitted}}</p>
+            <p>Resolved: {{ReimSingle.Resolved}}</p>
+            <p>Description: {{ReimSingle.Description}}</p>
+            <p>Author ID: {{ReimSingle.AuthorID}}</p>
+            <p>Resolver ID: {{ReimSingle.ResolverID}}</p>
+            <p>Status ID: {{ReimSingle.StatusID}}</p>
+            <p>Type ID: {{ReimSingle.TypeID}}</p>
+        </div>
+
+
+    </div>
+</div>
+
+
+
+<div class="buttonDiv">
+    <button class = "button1" (click)="showReim()">enter</button>
+</div>

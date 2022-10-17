@@ -1,0 +1,75 @@
+
+.padding{
+    /* display: flex; */
+    margin-left: 35%;
+    text-align: center;
+    padding-top: 300px;
+    justify-content: center;
+    
+}
+.textbox-card{
+    display: flex;
+    border-style:  outset none;
+    border-color: greenyellow;
+    justify-content: center;
+    width: 25em;
+    
+}
+.textbox{
+
+    display: flex;
+    padding-left: 10px;
+    padding-top: 20px;
+
+    justify-content: center;
+    height: 25px;
+    
+}
+
+h2{
+    text-size-adjust: 1px;
+    
+    color: rgb(20, 137, 102);
+    text-shadow: -1px 1px 0 #000,
+    1px 1px 0 #000,
+   1px -1px 0 #000,
+    -1px -1px 0 #000;
+
+}
+
+.grid-cont{
+
+    position: relative;
+     /*display: flex;*/
+     margin: 5%;
+     width: 10vw;
+     display: inline-grid;
+     gap: 10%;
+    grid-template-columns: repeat(12 , 1fr);
+}
+
+.Reimbursement{
+
+    border-style:  outset none;
+    border-color: greenyellow;
+    border-width: 5px;
+    border-radius: 10%;
+   
+    
+    background-color: rgb(107, 228, 107);
+    
+}
+h3{
+    color: rgb(11, 3, 14);
+    text-shadow: -0.2px 0.2px 0 #000,
+    0.2px 0.2px 0 #000,
+    0.2px -0.2px 0 #000,
+    -0.2px -0.2px 0 #000;
+}
+p{
+    color: rgb(187, 190, 189);
+    text-shadow: -1px 1px 0 #000,
+    1px 1px 0 #000,
+   1px -1px 0 #000,
+    -1px -1px 0 #000;
+}

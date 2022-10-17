@@ -1,0 +1,19 @@
+header{
+    display:flex;
+    justify-content: center;
+    width: 45vw;
+    margin: auto;
+    border-style: none  none double none;
+    border-width: 4px;
+    border-color: white;
+    
+}
+
+h1{
+    color: greenyellow;
+    text-shadow: -1px 1px 0 #000,
+    1px 1px 0 #000,
+   1px -1px 0 #000,
+    -1px -1px 0 #000;
+
+}
