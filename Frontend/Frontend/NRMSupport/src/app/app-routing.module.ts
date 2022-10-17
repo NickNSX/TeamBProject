@@ -15,6 +15,11 @@ const routes: Routes = [
   component:ReimbursementsComponent},
 
   
+  {path:"register", component:RegisterComponent},
+  {path:"", component:LoginComponent},
+  
+  {path:"reimbursements", component:ReimbursementsComponent},
+  {path:"user", component:UserComponent},
 ];
 
 @NgModule({

@@ -4,7 +4,7 @@ h1{
     text-align: center;    
 }
 
-body {
+.body {
     background-color: lightblue;
   }
 
@@ -24,11 +24,6 @@ h1{
   font-family: 'Times New Roman', Times, serif;
   text-align: center;    
 }
-
-body {
-  background-color: lightblue;
-}
-
 
 form {
 
