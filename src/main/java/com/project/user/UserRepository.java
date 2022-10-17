@@ -51,4 +51,9 @@ public interface UserRepository extends JpaRepository<User, UUID> {
     @Query(nativeQuery = true, value = "UPDATE ers_users SET is_active = ?1 WHERE user_id = ?2")
     void updateUserIsActive(boolean isActive, UUID userId);
 
+    @Modifying
+    @Transactional
+    @Query(nativeQuery = true, value = "UPDATE ers_users SET password = ?1 WHERE user_id = ?2")
+    void updateUserPassword(String password, UUID userId);
+
 }
