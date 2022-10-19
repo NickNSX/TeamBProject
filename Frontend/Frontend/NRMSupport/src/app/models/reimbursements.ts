@@ -2,7 +2,7 @@ export class Reimbursements {
 
     constructor( 
 
-        public reimbId:any,
+        public id:any,
     
         public amount:any,
     
@@ -16,9 +16,9 @@ export class Reimbursements {
     
         public resolverId:any,
     
-        public statusId:any,
+        public status:any,
     
-        public typeId:any)  {
+        public type:any)  {
     
        }
 

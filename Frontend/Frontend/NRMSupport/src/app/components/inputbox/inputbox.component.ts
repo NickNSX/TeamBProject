@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Reimbursements } from 'src/app/models/reimbursements';
+import { UserService } from 'src/app/services/user.service';
+import {ReimbursementServiceTsService} from '../../services/reimbursement.service.ts.service';
 
 @Component({
   selector: 'app-inputbox',
@@ -7,33 +10,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InputboxComponent implements OnInit {
 
-  todo1 = {
-   
-        Amount: "1000",
-        Submitted: "10:12",
-        Resolved: "9:12",
-        Description: "This is first Reim",
-        AuthorID: "Max",
-        ResolverID: "Resolver's name",
-        StatusID: "Pending",
-        TypeID: "Travel"
-  }
+  
+  authorID:string = "";
+  remiArray:any = [ ];
 
-  todo2 = {
-        Amount: "1",
-        Submitted: "1:23",
-        Resolved: "1:24",
-        Description: "This is Second Reim",
-        AuthorID: "Max",
-        ResolverID: "Resolver's name",
-        StatusID: "Pending",
-        TypeID: "Food"
-  }
+  ReimSingle:Reimbursements = {
+    id: undefined,
+    amount: undefined,
+    submitted: undefined,
+    resolved: undefined,
+    description: undefined,
+    authorId: undefined,
+    resolverId: undefined,
+    status: undefined,
+    type: undefined
+  };
 
-  remiArray = [this.todo1, this.todo2]
-
-
-  constructor() { }
+  constructor(private rs: ReimbursementServiceTsService, private us: UserService) { }
   hiddenGrid: boolean = true;
   ngOnInit(): void {
     this.hiddenGrid = true;
@@ -48,5 +41,65 @@ export class InputboxComponent implements OnInit {
     console.log(this.hiddenStart)
     console.log(this.hiddenGrid)
   }
+
+  callingServiceForRei(){
+  
+
+    if(this.remiArray.length > 1)
+    {
+      for( let i =this.remiArray.length;i >=0 ;i-- ){
+        this.remiArray.pop()
+    }
+  }
+    // this.rs.getReimbursement().subscribe(
+    //   (data:any) => {console.log(data)
+    //     for(let i = 0; i<data.length; i++)
+    //     {
+    //       this.remiArray.push(data[i]);
+    //     }
+      
+    //   }
+    // )
+
+    
+  }
+
+  getAllReim(){
+
+    if(this.remiArray.length > 0)
+    {
+      for( let i =this.remiArray.length;i >=0 ;i-- ){
+        this.remiArray.pop()
+      }
+  }
+  if(this.us.user.role == "Finance Manager")
+  {
+    this.rs.getReimbursement("/manager").subscribe(
+      (data:any) => {console.log(data)
+        for(let i = 0; i<data.length; i++)
+        {
+          this.remiArray.push(data[i]);
+        }
+      
+      }
+    )
+  }else if(this.us.user.role != "Finance Manager" && this.us.user.role != undefined)
+  {
+    this.rs.getReimbursement("/employee/"+this.us.user.userId).subscribe((data:any) => {console.log(data)
+      for(let i = 0; i<data.length; i++)
+      {
+        this.remiArray.push(data[i]);
+      }
+    
+    })
+  }
+
+  }
+
+
+
+
+
 }
+
 

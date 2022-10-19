@@ -22,7 +22,7 @@
     padding-top: 20px;
 
     justify-content: center;
-    height: 25px;
+    height: 50px;
     
 }
 
@@ -45,7 +45,7 @@ h2{
      width: 10vw;
      display: inline-grid;
      gap: 10%;
-    grid-template-columns: repeat(12 , 1fr);
+    grid-template-columns: repeat(6 , 1fr);
 }
 
 .Reimbursement{
