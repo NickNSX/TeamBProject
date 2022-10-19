@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Reimbursements } from 'src/app/models/reimbursements';
+import {ReimbursementServiceTsService} from '../../services/reimbursement.service.ts.service';
 
 @Component({
   selector: 'app-inputbox',
@@ -7,33 +9,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InputboxComponent implements OnInit {
 
-  todo1 = {
-   
-        Amount: "1000",
-        Submitted: "10:12",
-        Resolved: "9:12",
-        Description: "This is first Reim",
-        AuthorID: "Max",
-        ResolverID: "Resolver's name",
-        StatusID: "Pending",
-        TypeID: "Travel"
-  }
+  
+  authorID:string = "";
+  remiArray:any = [ ];
 
-  todo2 = {
-        Amount: "1",
-        Submitted: "1:23",
-        Resolved: "1:24",
-        Description: "This is Second Reim",
-        AuthorID: "Max",
-        ResolverID: "Resolver's name",
-        StatusID: "Pending",
-        TypeID: "Food"
-  }
+  ReimSingle:Reimbursements = {
+    reimbId: undefined,
+    amount: undefined,
+    submitted: undefined,
+    resolved: undefined,
+    description: undefined,
+    authorId: undefined,
+    resolverId: undefined,
+    statusId: undefined,
+    typeId: undefined
+  };
 
-  remiArray = [this.todo1, this.todo2]
-
-
-  constructor() { }
+  constructor(private rs: ReimbursementServiceTsService) { }
   hiddenGrid: boolean = true;
   ngOnInit(): void {
     this.hiddenGrid = true;
@@ -48,5 +40,22 @@ export class InputboxComponent implements OnInit {
     console.log(this.hiddenStart)
     console.log(this.hiddenGrid)
   }
+
+  callingServiceForRei(){
+  
+    // this.rs.getRemb(this.authorID).subscribe(
+    //   (data:any) => {console.log(data)
+    //     for(let i = 0; i<data.length; i++)
+    //     {
+    //       this.remiArray.push(data[i]);
+    //     }
+      
+    //   }
+    // )
+
+    
+  }
+
 }
+
 

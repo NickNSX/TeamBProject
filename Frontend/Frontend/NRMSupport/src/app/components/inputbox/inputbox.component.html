@@ -1,12 +1,13 @@
 
 
+
     <div class="padding" [hidden]="hiddenStart">
         <div class="textbox-card">
 
             <h2> Enter author ID:</h2>
             <p> </p>
             <div class="textbox">
-                <input id="textbox" type="text" style="width: 200px;">
+                <input id="textbox" type="text" style="width: 200px;" [(ngModel)]="authorID">
             </div>
 
 
@@ -35,7 +36,9 @@
         </div>
     </div>
 
-
+    <div class="buttonDiv">
+        <button class="button1" (click)="callingServiceForRei()">Get All</button>
+    </div>
 
     <div class="buttonDiv">
         <button class="button1" (click)="showReim()">enter</button>
