@@ -1,0 +1,338 @@
+<h3 style="text-align: center;">{{message}}</h3>
+
+<div class="grid-container" [hidden]="loggedIn">
+    <div class="card">
+        <ul>
+            <li><b>Id:</b>&nbsp;{{userId}}</li>
+            <li><b>Username:</b>&nbsp;{{username}}</li>
+            <li><b>Email:</b>&nbsp;{{email}}</li>
+            <li><b>Name:</b>&nbsp;{{givenName}}</li>
+            <li><b>Last Name:</b>&nbsp;{{surname}}</li>
+            <li><b>Is Active:</b>&nbsp;{{isActive}}</li>
+            <li><b>Role:</b>&nbsp;{{role}}</li>
+        </ul>
+    </div>
+    <div class="card" [hidden]="adminAccess">
+        <ul><b>Number of Pending Active status:</b>&nbsp;{{falseN}}
+            <button id="btn1" (click)="showInActive()">Show all inactive users</button><br>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" (click)="search()" name="searchAll" id="inlineRadio1">
+                <label class="form-check-label" for="inlineRadio1">Show All Users</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" (click)="showAllActive()" name="searchAllActive" id="inlineRadio2">
+                <label class="form-check-label" for="inlineRadio2">Show All Active Users</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" (click)="showAllEmployee()" name="searchAllEmployees" id="inlineRadio3">
+                <label class="form-check-label" for="inlineRadio3">Show All Employees</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" (click)="showAllAdmin()" name="searchAllAdmin" id="inlineRadio4">
+                <label class="form-check-label" for="inlineRadio4">Show All Admin</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" (click)="showAllFinance()" name="searchAllFinance" id="inlineRadio5">
+                <label class="form-check-label" for="inlineRadio5">Show All Finance Manger</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" (click)="searchByUserId()" name="inlineRadioOptions" id="inlineRadio6">
+                <label class="form-check-label" for="inlineRadio6">Search by UserId</label>
+            </div>
+            <div id="search" [hidden]="option1">
+                <label for="idToSearch">Enter id to search:</label>&nbsp;
+                <input type="text" [(ngModel)]="idToSearch">
+                <button id="btn2" (click)="search()">Search</button>
+                <p [hidden]="error">{{errorMessage}}</p>
+            </div>
+        </ul>
+    </div>
+</div>
+
+<div [hidden]="adminAccess">
+    <p id="p1">{{displayMessage}}</p>
+    <div class="grid-container">
+        <div class="card" *ngFor="let user of userArray" [hidden]="showAll">
+            <ul>
+                <h5>{{user.givenName}}&nbsp;{{user.surname}}</h5>
+                <li><b>Id:</b>&nbsp;{{user.userId}}</li>
+                <li><b>Username:</b>&nbsp;{{user.username}}</li>
+                <li><b>Email:</b>&nbsp;{{user.email}}</li>
+                <li><b>Is Active:</b>&nbsp;{{user.isActive}}</li>
+                <li><b>Role:</b>&nbsp;{{user.role}}</li>
+            </ul>
+            <div class="cardButton">
+                <button (click)="changeActive(user.userId, user.isActive)">Change Active</button>
+                <button (click)="openForm(user.userId)">Edit</button>
+                <div class="form-popup" id="myForm" [hidden]="hideForm">
+                    <form class="form-container">
+
+                        <h3>Enter New Info</h3>
+                        <label for="givenName"><b>Given Name</b></label>
+                        <input type="text" placeholder="Given Name" name="givenName" [(ngModel)]="updateInfo.givenName">
+
+                        <label for="surname"><b>Surname</b></label>
+                        <input type="text" placeholder="Surname" name="surname" [(ngModel)]="updateInfo.surname">
+
+                        <label for="email"><b>Email</b></label>
+                        <input type="text" placeholder="Email" name="email" [(ngModel)]="updateInfo.email">
+
+                        <label for="username"><b>Username</b></label>
+                        <input type="text" placeholder="Username" name="username" [(ngModel)]="updateInfo.username">
+
+                        <label for="password"><b>Password</b></label>
+                        <input type="password" placeholder="Password" name="password" [(ngModel)]="updateInfo.password">
+
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="inputGroupSelect01">Choose a Role</label>
+                            <select class="form-select" name="role" [(ngModel)]="updateInfo.role">
+                                <option value="Employee" selected>Employee</option>
+                                <option value="Admin">Admin</option>
+                                <option value="Finance Manager">Finance Manager</option>
+                            </select>
+                        </div>
+                        <button style="width: 90%;" type="submit" class="btn"
+                            (click)="update(user.userId)">Update</button>
+                        <button style="width: 90%;" type="button" class="btn cancel"
+                            (click)="closeForm()">Close</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="card" *ngFor="let user of inActiveUser" [hidden]="showNonActive">
+            <ul>
+                <h5>{{user.givenName}}&nbsp;{{user.surname}}</h5>
+                <li><b>Id:</b>&nbsp;{{user.userId}}</li>
+                <li><b>Username:</b>&nbsp;{{user.username}}</li>
+                <li><b>Email:</b>&nbsp;{{user.email}}</li>
+                <li><b>Is Active:</b>&nbsp;{{user.isActive}}</li>
+                <li><b>Role:</b>&nbsp;{{user.role}}</li>
+            </ul>
+            <div class="cardButton">
+                <button (click)="changeActive(user.userId, user.isActive)">Change Active</button>
+                <button (click)="openForm(user.userId)">Edit</button>
+                <div class="form-popup" id="myForm" [hidden]="hideForm">
+                    <form class="form-container">
+
+                        <h3>Enter New Info</h3>
+                        <label for="givenName"><b>Given Name</b></label>
+                        <input type="text" placeholder="Given Name" name="givenName" [(ngModel)]="updateInfo.givenName">
+
+                        <label for="surname"><b>Surname</b></label>
+                        <input type="text" placeholder="Surname" name="surname" [(ngModel)]="updateInfo.surname">
+
+                        <label for="email"><b>Email</b></label>
+                        <input type="text" placeholder="Email" name="email" [(ngModel)]="updateInfo.email">
+
+                        <label for="username"><b>Username</b></label>
+                        <input type="text" placeholder="Username" name="username" [(ngModel)]="updateInfo.username">
+
+                        <label for="password"><b>Password</b></label>
+                        <input type="password" placeholder="Password" name="password" [(ngModel)]="updateInfo.password">
+
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="inputGroupSelect01">Choose a Role</label>
+                            <select class="form-select" name="role" [(ngModel)]="updateInfo.role">
+                                <option value="Employee" selected>Employee</option>
+                                <option value="Admin">Admin</option>
+                                <option value="Finance Manager">Finance Manager</option>
+                            </select>
+                        </div>
+                        <button style="width: 90%;" type="submit" class="btn"
+                            (click)="update(user.userId)">Update</button>
+                        <button style="width: 90%;" type="button" class="btn cancel"
+                            (click)="closeForm()">Close</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="card" *ngFor="let user of activeUser" [hidden]="showActive">
+            <ul>
+                <h5>{{user.givenName}}&nbsp;{{user.surname}}</h5>
+                <li><b>Id:</b>&nbsp;{{user.userId}}</li>
+                <li><b>Username:</b>&nbsp;{{user.username}}</li>
+                <li><b>Email:</b>&nbsp;{{user.email}}</li>
+                <li><b>Is Active:</b>&nbsp;{{user.isActive}}</li>
+                <li><b>Role:</b>&nbsp;{{user.role}}</li>
+            </ul>
+            <div class="cardButton">
+                <button (click)="changeActive(user.userId, user.isActive)">Change Active</button>
+                <button (click)="openForm(user.userId)">Edit</button>
+                <div class="form-popup" id="myForm" [hidden]="hideForm">
+                    <form class="form-container">
+
+                        <h3>Enter New Info</h3>
+                        <label for="givenName"><b>Given Name</b></label>
+                        <input type="text" placeholder="Given Name" name="givenName" [(ngModel)]="updateInfo.givenName">
+
+                        <label for="surname"><b>Surname</b></label>
+                        <input type="text" placeholder="Surname" name="surname" [(ngModel)]="updateInfo.surname">
+
+                        <label for="email"><b>Email</b></label>
+                        <input type="text" placeholder="Email" name="email" [(ngModel)]="updateInfo.email">
+
+                        <label for="username"><b>Username</b></label>
+                        <input type="text" placeholder="Username" name="username" [(ngModel)]="updateInfo.username">
+
+                        <label for="password"><b>Password</b></label>
+                        <input type="password" placeholder="Password" name="password" [(ngModel)]="updateInfo.password">
+
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="inputGroupSelect01">Choose a Role</label>
+                            <select class="form-select" name="role" [(ngModel)]="updateInfo.role">
+                                <option value="Employee" selected>Employee</option>
+                                <option value="Admin">Admin</option>
+                                <option value="Finance Manager">Finance Manager</option>
+                            </select>
+                        </div>
+                        <button style="width: 90%;" type="submit" class="btn"
+                            (click)="update(user.userId)">Update</button>
+                        <button style="width: 90%;" type="button" class="btn cancel"
+                            (click)="closeForm()">Close</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="card" *ngFor="let user of employeeUser" [hidden]="showEmployee">
+            <ul>
+                <h5>{{user.givenName}}&nbsp;{{user.surname}}</h5>
+                <li><b>Id:</b>&nbsp;{{user.userId}}</li>
+                <li><b>Username:</b>&nbsp;{{user.username}}</li>
+                <li><b>Email:</b>&nbsp;{{user.email}}</li>
+                <li><b>Is Active:</b>&nbsp;{{user.isActive}}</li>
+                <li><b>Role:</b>&nbsp;{{user.role}}</li>
+            </ul>
+            <div class="cardButton">
+                <button (click)="changeActive(user.userId, user.isActive)">Change Active</button>
+                <button (click)="openForm(user.userId)">Edit</button>
+                <div class="form-popup" id="myForm" [hidden]="hideForm">
+                    <form class="form-container">
+
+                        <h3>Enter New Info</h3>
+                        <label for="givenName"><b>Given Name</b></label>
+                        <input type="text" placeholder="Given Name" name="givenName" [(ngModel)]="updateInfo.givenName">
+
+                        <label for="surname"><b>Surname</b></label>
+                        <input type="text" placeholder="Surname" name="surname" [(ngModel)]="updateInfo.surname">
+
+                        <label for="email"><b>Email</b></label>
+                        <input type="text" placeholder="Email" name="email" [(ngModel)]="updateInfo.email">
+
+                        <label for="username"><b>Username</b></label>
+                        <input type="text" placeholder="Username" name="username" [(ngModel)]="updateInfo.username">
+
+                        <label for="password"><b>Password</b></label>
+                        <input type="password" placeholder="Password" name="password" [(ngModel)]="updateInfo.password">
+
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="inputGroupSelect01">Choose a Role</label>
+                            <select class="form-select" name="role" [(ngModel)]="updateInfo.role">
+                                <option value="Employee" selected>Employee</option>
+                                <option value="Admin">Admin</option>
+                                <option value="Finance Manager">Finance Manager</option>
+                            </select>
+                        </div>
+                        <button style="width: 90%;" type="submit" class="btn"
+                            (click)="update(user.userId)">Update</button>
+                        <button style="width: 90%;" type="button" class="btn cancel"
+                            (click)="closeForm()">Close</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="card" *ngFor="let user of adminUser" [hidden]="showAdmin">
+            <ul>
+                <h5>{{user.givenName}}&nbsp;{{user.surname}}</h5>
+                <li><b>Id:</b>&nbsp;{{user.userId}}</li>
+                <li><b>Username:</b>&nbsp;{{user.username}}</li>
+                <li><b>Email:</b>&nbsp;{{user.email}}</li>
+                <li><b>Is Active:</b>&nbsp;{{user.isActive}}</li>
+                <li><b>Role:</b>&nbsp;{{user.role}}</li>
+            </ul>
+            <div class="cardButton">
+                <button (click)="changeActive(user.userId, user.isActive)">Change Active</button>
+                <button (click)="openForm(user.userId)">Edit</button>
+                <div class="form-popup" id="myForm" [hidden]="hideForm">
+                    <form class="form-container">
+
+                        <h3>Enter New Info</h3>
+                        <label for="givenName"><b>Given Name</b></label>
+                        <input type="text" placeholder="Given Name" name="givenName" [(ngModel)]="updateInfo.givenName">
+
+                        <label for="surname"><b>Surname</b></label>
+                        <input type="text" placeholder="Surname" name="surname" [(ngModel)]="updateInfo.surname">
+
+                        <label for="email"><b>Email</b></label>
+                        <input type="text" placeholder="Email" name="email" [(ngModel)]="updateInfo.email">
+
+                        <label for="username"><b>Username</b></label>
+                        <input type="text" placeholder="Username" name="username" [(ngModel)]="updateInfo.username">
+
+                        <label for="password"><b>Password</b></label>
+                        <input type="password" placeholder="Password" name="password" [(ngModel)]="updateInfo.password">
+
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="inputGroupSelect01">Choose a Role</label>
+                            <select class="form-select" name="role" [(ngModel)]="updateInfo.role">
+                                <option value="Employee" selected>Employee</option>
+                                <option value="Admin">Admin</option>
+                                <option value="Finance Manager">Finance Manager</option>
+                            </select>
+                        </div>
+                        <button style="width: 90%;" type="submit" class="btn"
+                            (click)="update(user.userId)">Update</button>
+                        <button style="width: 90%;" type="button" class="btn cancel"
+                            (click)="closeForm()">Close</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="card" *ngFor="let user of financeUser" [hidden]="showFinance">
+            <ul>
+                <h5>{{user.givenName}}&nbsp;{{user.surname}}</h5>
+                <li><b>Id:</b>&nbsp;{{user.userId}}</li>
+                <li><b>Username:</b>&nbsp;{{user.username}}</li>
+                <li><b>Email:</b>&nbsp;{{user.email}}</li>
+                <li><b>Is Active:</b>&nbsp;{{user.isActive}}</li>
+                <li><b>Role:</b>&nbsp;{{user.role}}</li>
+            </ul>
+            <div class="cardButton">
+                <button (click)="changeActive(user.userId, user.isActive)">Change Active</button>
+                <button (click)="openForm(user.userId)">Edit</button>
+                <div class="form-popup" id="myForm" [hidden]="hideForm">
+                    <form class="form-container">
+
+                        <h3>Enter New Info</h3>
+                        <label for="givenName"><b>Given Name</b></label>
+                        <input type="text" placeholder="Given Name" name="givenName" [(ngModel)]="updateInfo.givenName">
+
+                        <label for="surname"><b>Surname</b></label>
+                        <input type="text" placeholder="Surname" name="surname" [(ngModel)]="updateInfo.surname">
+
+                        <label for="email"><b>Email</b></label>
+                        <input type="text" placeholder="Email" name="email" [(ngModel)]="updateInfo.email">
+
+                        <label for="username"><b>Username</b></label>
+                        <input type="text" placeholder="Username" name="username" [(ngModel)]="updateInfo.username">
+
+                        <label for="password"><b>Password</b></label>
+                        <input type="password" placeholder="Password" name="password" [(ngModel)]="updateInfo.password">
+
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="inputGroupSelect01">Choose a Role</label>
+                            <select class="form-select" name="role" [(ngModel)]="updateInfo.role">
+                                <option value="Employee" selected>Employee</option>
+                                <option value="Admin">Admin</option>
+                                <option value="Finance Manager">Finance Manager</option>
+                            </select>
+                        </div>
+                        <button style="width: 90%;" type="submit" class="btn"
+                            (click)="update(user.userId)">Update</button>
+                        <button style="width: 90%;" type="button" class="btn cancel"
+                            (click)="closeForm()">Close</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
