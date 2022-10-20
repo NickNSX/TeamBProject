@@ -6,8 +6,18 @@
     height: 50%;
 }
 
+input {
+    background-color: lightgrey;
+}
+
+select {
+    background-color: lightgrey;
+}
+
 .register h2 {
     padding-bottom: 5px;
+    color: burlywood;
+    font-size: 35px;
 }
 
 .form-floating label {
@@ -29,17 +39,21 @@ button {
 
 .message {
     margin-top: 20px;
+    font-size: 20px;
+    font-weight: 500;
 }
 
 .message #error {
     color: red;
-    font-weight: 500;
-    font-size: 20px;
+    font-size: 25px;
+    /* font-weight: 500;
+    font-size: 20px; */
 }
 
 .message #success {
+    color: burlywood;
     display: flex;
     width: 80%;
-    font-weight: 500;
-    font-size: 20px;
+    /* font-weight: 500;
+    font-size: 20px; */
 }

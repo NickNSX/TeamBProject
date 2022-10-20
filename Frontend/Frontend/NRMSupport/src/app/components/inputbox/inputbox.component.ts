@@ -14,6 +14,9 @@ export class InputboxComponent implements OnInit {
   authorID:string = "";
   remiArray:any = [ ];
 
+
+
+
   ReimSingle:Reimbursements = {
     id: undefined,
     amount: undefined,
@@ -28,6 +31,9 @@ export class InputboxComponent implements OnInit {
 
   constructor(private rs: ReimbursementServiceTsService, private us: UserService) { }
   hiddenGrid: boolean = true;
+   checkbox1:String ="";
+   checkbox2:String ="";
+
   ngOnInit(): void {
     this.hiddenGrid = true;
   }
@@ -51,48 +57,57 @@ export class InputboxComponent implements OnInit {
         this.remiArray.pop()
     }
   }
-    // this.rs.getReimbursement().subscribe(
-    //   (data:any) => {console.log(data)
-    //     for(let i = 0; i<data.length; i++)
-    //     {
-    //       this.remiArray.push(data[i]);
-    //     }
-      
-    //   }
-    // )
-
+ 
     
   }
 
-  getAllReim(){
-
-    if(this.remiArray.length > 0)
-    {
-      for( let i =this.remiArray.length;i >=0 ;i-- ){
-        this.remiArray.pop()
-      }
-  }
-  if(this.us.user.role == "Finance Manager")
+  getAllReim() 
   {
-    this.rs.getReimbursement("/manager").subscribe(
-      (data:any) => {console.log(data)
+
+   // this.checkbox1 = document.getElementById("1").value;
+
+      if(this.remiArray.length > 0)//to get rid of previous click
+      {
+        for( let i =this.remiArray.length;i >=0 ;i-- ){
+          this.remiArray.pop()
+        }
+      }
+      if(this.us.user.role == "Finance Manager" )
+      {
+        this.rs.getReimbursement("/manager").subscribe(
+        (data:any) =>   
+        {console.log(data)
+          for(let i = 0; i<data.length; i++)
+          {
+            this.remiArray.push(data[i]);
+          }
+        
+        }
+      )
+    }
+    else if(this.us.user.role == "Finance Manager" )
+      {
+        this.rs.getReimbursement("/manager").subscribe(
+        (data:any) =>   
+        {console.log(data)
+          for(let i = 0; i<data.length; i++)
+          {
+            this.remiArray.push(data[i]);
+          }
+        
+        }
+      )
+    }
+    else if(this.us.user.role != "Finance Manager" && this.us.user.role != undefined)
+    {
+      this.rs.getReimbursement("/employee/"+this.us.user.userId).subscribe((data:any) => {console.log(data)
         for(let i = 0; i<data.length; i++)
         {
           this.remiArray.push(data[i]);
         }
       
-      }
-    )
-  }else if(this.us.user.role != "Finance Manager" && this.us.user.role != undefined)
-  {
-    this.rs.getReimbursement("/employee/"+this.us.user.userId).subscribe((data:any) => {console.log(data)
-      for(let i = 0; i<data.length; i++)
-      {
-        this.remiArray.push(data[i]);
-      }
-    
-    })
-  }
+      })
+    }
 
   }
 
@@ -101,5 +116,3 @@ export class InputboxComponent implements OnInit {
 
 
 }
-
-

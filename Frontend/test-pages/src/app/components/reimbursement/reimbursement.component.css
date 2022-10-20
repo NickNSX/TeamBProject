@@ -1,4 +1,6 @@
-
+h2 {
+  text-align: center;
+}
 .padding{
   /* display: flex; */
   margin-left: 35%;
@@ -78,10 +80,20 @@ p{
     margin-left: 50px;
 }
 
-table {
+.control label {
+  color: chartreuse;
+  font-size: 25px;
+}
+
+.control .input-group option, .control .input-group select {
+  color: rgb(20, 137, 102);
+
+}
+
+/* table {
     border-style: solid;
     border-width: 2px;
-}
+} */
 
 /* The popup form - hidden by default */
 .form-popup {
@@ -98,7 +110,15 @@ table {
   .form-container {
     max-width: 300px;
     padding: 10px;
-    background-color: white;
+    background-color: dimgrey;
+  }
+
+  .input-group-text {
+    background-color: darkgrey;
+  }
+
+  .form-container input, .input-group option, .input-group select {
+    color: #8F7CEC;
   }
   
   /* Full-width input fields */

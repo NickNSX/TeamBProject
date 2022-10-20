@@ -1,7 +1,13 @@
 * {
-  color:azure;
+  color:lightgoldenrodyellow;
   font-size: 25px;
+}
 
+.grid-container input {
+  color: black;
+  width: 190px;
+  margin-left: 15px;
+  margin-right: 15px;
 }
 
 p {
@@ -40,6 +46,14 @@ p {
   
   div{
     text-align: center;
+  }
+
+  input {
+    color: darkviolet;
+  }
+
+  #notLoggedIn {
+    font-size: 50px;
   }
   
   #description {

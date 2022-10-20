@@ -163,12 +163,24 @@ export class ReimbursementComponent implements OnInit {
     this.rs.searchByStatus(this.statusToSearch).subscribe(
 
       (data: any) => {
-        for (let i = 0; i < data.length; i++) {
-          this.allReimb.push(data[i]);
-        }
 
-        if (data.length == undefined) {
-          this.allReimb.push(data);
+        if (this.us.user.role != "Finance Manager") {
+          console.log("check 1");
+          console.log(data);
+
+          for (let i = 0; i < data.length; i++) {
+            if (this.us.user.userId == data[i].authorId) { console.log("check 2");
+            this.allReimb.push(data[i]);
+            }
+          }
+        } else {
+          for (let i = 0; i < data.length; i++) {
+            this.allReimb.push(data[i]);
+          }
+  
+          if (data.length == undefined) {
+            this.allReimb.push(data);
+          }
         }
       },
 
