@@ -68,7 +68,7 @@ export class UsersComponent implements OnInit {
     } else {
       this.adminAccess = true;
       this.loggedIn = true;
-      this.message = "Not Logged In";
+      this.message = "Please Log In!";
     }
     
   }
@@ -134,6 +134,8 @@ export class UsersComponent implements OnInit {
         alert("User not activated.")
       }
     }
+
+    this.falseNumb();
   }
 
   update(userId:string) {
@@ -148,6 +150,7 @@ export class UsersComponent implements OnInit {
       this.closeForm();
       this.updateInfo = { };
     }
+    this.sort();
   }
 
   searchByUserId() {
@@ -180,6 +183,16 @@ export class UsersComponent implements OnInit {
   
   falseNumb() {
     this.falseN = 0;
+    if (this.inActiveUser.length > 0) {
+      for (let i = this.inActiveUser.length; i > 0; i--) {
+        this.inActiveUser.pop();
+      }
+    }
+    if (this.activeUser.length > 0) {
+      for (let i = this.activeUser.length; i > 0; i--) {
+        this.activeUser.pop();
+      }
+    }
     this.us.search(this.idToSearch).subscribe(
       (data:any) => {
         for (let i = 0; i < data.length; i++) {
@@ -196,6 +209,21 @@ export class UsersComponent implements OnInit {
   }
 
   sort() {
+    if (this.employeeUser.length > 0) {
+      for (let i = this.employeeUser.length; i > 0; i--) {
+        this.employeeUser.pop();
+      }
+    }
+    if (this.adminUser.length > 0) {
+      for (let i = this.financeUser.length; i > 0; i--) {
+        this.adminUser.pop();
+      }
+    }
+    if (this.financeUser.length > 0) {
+      for (let i = this.financeUser.length; i > 0; i--) {
+        this.financeUser.pop();
+      }
+    }
     this.us.search(this.idToSearch).subscribe(
       (data:any) => {
         for (let i = 0; i < data.length; i++) {

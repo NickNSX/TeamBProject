@@ -1,5 +1,14 @@
+*{
+  color:whitesmoke
+}
+
 h3 {
-  margin-left: 20px;
+  text-align: center;
+  font-size: 50px;
+}
+
+button {
+  color: black;
 }
 
 .grid-container {
@@ -26,7 +35,7 @@ font-size: 25px;
   border-width: 5px;
   border-radius: 10%;
   border-color: black;
-  background-color:darksalmon;
+  background-color: grey;
   color: black;
 }
 
@@ -98,7 +107,15 @@ border-radius: 10px;
 .form-container {
   max-width: 300px;
   padding: 10px;
-  background-color: white;
+  background-color: dimgrey;
+}
+
+.form-container input, .input-group option, .input-group select {
+  color: #8F7CEC;
+}
+
+.form-container h3 {
+  font-size: 30px;
 }
 
 /* Full-width input fields */
@@ -136,4 +153,12 @@ border-radius: 10px;
 /* Add some hover effects to buttons */
 .form-container .btn:hover, .open-button:hover {
   opacity: 1;
+}
+
+.input-group label {
+  color: dimgrey;
+}
+
+.input-group-text {
+  background-color: darkgrey;
 }

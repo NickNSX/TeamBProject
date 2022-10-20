@@ -1,8 +1,11 @@
+<h2 *ngIf="loggedIn == true">Please Log In!</h2>
 <div [hidden]="loggedIn">
     <div class="reimbPage">
-        <div>
-            <button (click)="getAll()">Get All</button>
-            <input style="margin-left: 10px;" type="text" placeholder="Id" [(ngModel)]="idToSearch">
+        <div class="control">
+            <label for="getAll">See all reimbursements:</label>&nbsp;
+            <button id="getAll" (click)="getAll()">Get All</button>&nbsp;
+            <label for="searchReimb">Search for reimbursement:</label>&nbsp;
+            <input style="margin-left: 10px;" name="searchReimb" type="text" placeholder="Id" [(ngModel)]="idToSearch">
             <button (click)="searchById()">Search</button>
             <div style="width: 25%;" class="input-group mb-2">
                 <label class="input-group-text" for="inputGroupSelect01">Status</label>
@@ -10,7 +13,7 @@
                     <option value="Approved">Approved</option>
                     <option value="Denied">Denied</option>
                     <option value="Pending" selected>Pending</option>
-                </select>
+                </select>&nbsp;
                 <button (click)="searchByStatus()">Search</button>
             </div>
         </div>
@@ -98,8 +101,11 @@
                 </div>
 
                 <div [hidden]="statusUpdate">
-                    <label for="username"><b>Status</b></label>
-                    <input type="text" placeholder="Status" name="status" [(ngModel)]="updateInfo.status">
+                    <label class="input-group-text" for="inputGroupSelect01">Choose a Status</label>
+                        <select class="form-select" id="inputGroupSelect01" name="status" [(ngModel)]="updateInfo.status">
+                            <option value="Approved">Approved</option>
+                            <option value="Denied">Denied</option>
+                        </select>
                 </div>
 
                 <button style="width: 90%;" type="submit" class="btn" (click)="update()">Update</button>
