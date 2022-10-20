@@ -1,0 +1,110 @@
+<div [hidden]="loggedIn">
+    <div class="reimbPage">
+        <div>
+            <button (click)="getAll()">Get All</button>
+            <input style="margin-left: 10px;" type="text" placeholder="Id" [(ngModel)]="idToSearch">
+            <button (click)="searchById()">Search</button>
+            <div style="width: 25%;" class="input-group mb-2">
+                <label class="input-group-text" for="inputGroupSelect01">Status</label>
+                <select class="form-select" id="inputGroupSelect01" [(ngModel)]="statusToSearch">
+                    <option value="Approved">Approved</option>
+                    <option value="Denied">Denied</option>
+                    <option value="Pending" selected>Pending</option>
+                </select>
+                <button (click)="searchByStatus()">Search</button>
+            </div>
+        </div>
+
+        <div [hidden]="hiddenGrid">
+            <div class="grid-cont">
+                <div *ngFor="let reimb of allReimb" class="Reimbursement">
+                    <h3> Reimbursement</h3>
+                    <p>Amount: ${{reimb.amount}}</p>
+                    <p>Submitted: {{reimb.submitted}}</p>
+                    <p>Resolved: {{reimb.resolved}}</p>
+                    <p>Description: {{reimb.description}}</p>
+                    <p>Author ID: {{reimb.authorId}}</p>
+                    <p>Resolver ID: {{reimb.resolverId}}</p>
+                    <p>Status : {{reimb.status}}</p>
+                    <p>Type : {{reimb.type}}</p>
+                    <button style="margin-left: 20px;" *ngIf="reimb.status == 'Pending'"
+                        (click)="openForm(reimb.id, reimb.authorId)">Edit</button>
+
+                </div>
+            </div>
+        </div>
+        <!-- <div class="buttonDiv">
+            <button class="button1" (click)="getAllReim()">Get All</button>
+        </div>
+
+        <div class="buttonDiv">
+            <button class="button1" (click)="showReim()">enter</button>
+        </div> -->
+
+        <!-- <div class="table" style="width: 90%;">
+        <table>
+            <tr> 
+                9
+                <th>Reimb Id</th>
+                <th>Amount</th>
+                <th>Submitted</th>
+                <th>Resolved</th>
+                <th>Description</th>
+                <th>Author Id</th>
+                <th>Resolver Id</th>
+                <th>Status</th>
+                <th>Type</th>
+                <th></th>
+            </tr>
+            <tr style="text-align: center;" [hidden]="noReimb">
+                <td colspan="9"><b>No Reimbursement</b></td>
+            </tr>
+            <tr style="text-align: center;" *ngFor="let reimb of allReimb">
+                <td>{{reimb.id}}</td>
+                <td>${{reimb.amount}}</td>
+                <td>{{reimb.submitted}}</td>
+                <td>{{reimb.resolved}}</td>
+                <td>{{reimb.description}}</td>
+                <td>{{reimb.authorId}}</td>
+                <td>{{reimb.resolverId}}</td>
+                <td>{{reimb.status}}</td>
+                <td>{{reimb.type}}</td>
+                <td *ngIf="reimb.status == 'Pending'"><button (click)="openForm(reimb.id, reimb.authorId)">Edit</button></td>
+            </tr>
+        </table>
+    </div> -->
+        <div class="form-popup" id="myForm" [hidden]="hideForm">
+            <form class="form-container">
+
+                <h3>Enter New Info</h3>
+                <div [hidden]=ownerUpdate>
+                    <label for="amount"><b>Amount</b></label><br>
+                    <input type="number" placeholder="Amount" name="amount" [(ngModel)]="updateInfo.amount"><br>
+
+                    <label for="description"><b>Description</b></label>
+                    <input type="text" placeholder="Description" name="description"
+                        [(ngModel)]="updateInfo.description">
+
+
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="inputGroupSelect01">Choose a Type</label>
+                        <select class="form-select" id="inputGroupSelect01" name="type" [(ngModel)]="updateInfo.type">
+                            <option value="Lodging">Lodging</option>
+                            <option value="Food">Food</option>
+                            <option value="Travel">Travel</option>
+                            <option value="Other" selected>Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div [hidden]="statusUpdate">
+                    <label for="username"><b>Status</b></label>
+                    <input type="text" placeholder="Status" name="status" [(ngModel)]="updateInfo.status">
+                </div>
+
+                <button style="width: 90%;" type="submit" class="btn" (click)="update()">Update</button>
+                <button style="width: 90%;" type="button" class="btn cancel" (click)="closeForm()">Close</button>
+            </form>
+        </div>
+    </div>
+</div>
