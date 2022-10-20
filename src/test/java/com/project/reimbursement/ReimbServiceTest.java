@@ -410,57 +410,7 @@ public class ReimbServiceTest {
         updateReimb.setType("");
         sut.updateReimb(updateReimb);
         
-        // updateReimb.setStatus(null);
-        // updateReimb.setAmount(30000);
-        // when(mockReimbDAO.isPending(updateReimb.getReimbId())).thenReturn(false);
-
-        // assertThrows(InvalidRequestException.class, () -> {
-        //     sut.updateUserReimb(updateReimb);
-        // });
-
-        // when(mockReimbDAO.isPending(updateReimb.getReimbId())).thenReturn(true);
-
-        // assertThrows(InvalidRequestException.class, () -> {
-        //     sut.updateUserReimb(updateReimb);
-        // });
-
-        // when(mockReimbDAO.updateUserAmount(updateReimb.getReimbId(), updateReimb.getAmount())).thenReturn("Amount ");
-        // updateReimb.setAmount(300);
-        // ResourceCreationResponse actualA = sut.updateUserReimb(updateReimb);
-        // ResourceCreationResponse expectedA = new ResourceCreationResponse("Updated request");
-        // assertEquals(expectedA, actualA);
-
-        // updateReimb.setAmount(0);
-        // updateReimb.setDescription(null);
-        // updateReimb.setType("Lodging");
-
-        // ResourceCreationResponse actualTL = sut.updateUserReimb(updateReimb);
-        // ResourceCreationResponse expectedTL = new ResourceCreationResponse("Updated request");
-        // assertEquals(expectedTL, actualTL);
-
-        // updateReimb.setType("Travel");
-
-        // ResourceCreationResponse actualTT = sut.updateUserReimb(updateReimb);
-        // ResourceCreationResponse expectedTT = new ResourceCreationResponse("Updated request");
-        // assertEquals(expectedTT, actualTT);
-
-        // updateReimb.setType("Food");
-
-        // ResourceCreationResponse actualTF = sut.updateUserReimb(updateReimb);
-        // ResourceCreationResponse expectedTF = new ResourceCreationResponse("Updated request");
-        // assertEquals(expectedTF, actualTF);
-
-        // updateReimb.setType("Other");
-
-        // ResourceCreationResponse actualTO = sut.updateUserReimb(updateReimb);
-        // ResourceCreationResponse expectedTO = new ResourceCreationResponse("Updated request");
-        // assertEquals(expectedTO, actualTO);
-
-        // updateReimb.setType("Wrong");
-
-        // assertThrows(InvalidRequestException.class, () -> {
-        //     sut.updateUserReimb(updateReimb);
-        // });
+       
     }
 }
 

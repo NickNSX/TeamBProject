@@ -1,0 +1,67 @@
+* {
+  color:lightgoldenrodyellow;
+  font-size: 25px;
+}
+
+.grid-container input {
+  color: black;
+  width: 190px;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+p {
+    text-align: center;
+    font-size: 25px;
+  }
+  
+  h1{
+      font-size: 190%;
+      font-family: 'Times New Roman', Times, serif;
+      text-align: center;    
+  }
+  
+  
+  form {
+  
+      text-align: center;
+  
+  } 
+  
+  div{
+      text-align: center;
+  }
+  
+  h1{
+    font-size: 190%;
+    font-family: 'Times New Roman', Times, serif;
+    text-align: center;    
+  }
+  
+  form {
+  
+    text-align: center;
+  
+  } 
+  
+  div{
+    text-align: center;
+  }
+
+  input {
+    color: darkviolet;
+  }
+
+  #notLoggedIn {
+    font-size: 50px;
+  }
+  
+  #description {
+  width: 320px;
+  padding: 10px;
+  border: 5px solid gray;
+  margin: 0; 
+  
+  }
+  
+  

@@ -1,0 +1,59 @@
+.register {
+    text-align: center;
+    margin-top: 5%;
+    margin-left: 10%;
+    width: 80%;
+    height: 50%;
+}
+
+input {
+    background-color: lightgrey;
+}
+
+select {
+    background-color: lightgrey;
+}
+
+.register h2 {
+    padding-bottom: 5px;
+    color: burlywood;
+    font-size: 35px;
+}
+
+.form-floating label {
+    padding-left: 20px;
+}
+
+button {
+    width: 20%;
+    height: 50px;
+    border-radius: 5px;
+}
+
+.buttons {
+    display: inline-block;
+    display: flex;
+    margin-left: 15%;
+    gap: 40%;
+}
+
+.message {
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.message #error {
+    color: red;
+    font-size: 25px;
+    /* font-weight: 500;
+    font-size: 20px; */
+}
+
+.message #success {
+    color: burlywood;
+    display: flex;
+    width: 80%;
+    /* font-weight: 500;
+    font-size: 20px; */
+}

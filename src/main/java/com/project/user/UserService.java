@@ -132,6 +132,14 @@ public class UserService {
             userRepo.updateUserGivenName(updateUser.getGivenName(), UUID.fromString(updateUser.getUserId()));
         }
 
+        if (updateUser.getPassword() != null) {
+            if (updateUser.getPassword().trim().length() > 7) {
+                userRepo.updateUserPassword(updateUser.getPassword(), UUID.fromString(updateUser.getUserId()));
+            } else {
+                throw new InvalidRequestException("Password must be longer than 8 characters.");
+            }
+        }
+
         if (updateUser.getSurname() != null) {
             userRepo.updateSurname(updateUser.getSurname(), UUID.fromString(updateUser.getUserId()));
         }

@@ -3,3 +3,4 @@ application.properties
 logs/
 tomcat.5000
 target/
+.idea/

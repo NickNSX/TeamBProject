@@ -1,0 +1,159 @@
+h2 {
+  text-align: center;
+}
+.padding{
+  /* display: flex; */
+  margin-left: 35%;
+  text-align: center;
+  padding-top: 300px;
+  justify-content: center;
+  
+}
+.textbox-card{
+  display: flex;
+  border-style:  outset none;
+  border-color: greenyellow;
+  justify-content: center;
+  width: 25em;
+  
+}
+.textbox{
+
+  display: flex;
+  padding-left: 10px;
+  padding-top: 20px;
+
+  justify-content: center;
+  height: 50px;
+  
+}
+
+h2{
+  text-size-adjust: 1px;
+  
+  color: rgb(20, 137, 102);
+  text-shadow: -1px 1px 0 #000,
+  1px 1px 0 #000,
+ 1px -1px 0 #000,
+  -1px -1px 0 #000;
+
+}
+
+.grid-cont{
+
+  position: relative;
+   /*display: flex;*/
+   margin: 5%;
+   width: 10vw;
+   display: inline-grid;
+   gap: 10%;
+  grid-template-columns: repeat(6 , 1fr);
+}
+
+.Reimbursement{
+
+  border-style:  outset none;
+  border-color: greenyellow;
+  border-width: 5px;
+  border-radius: 10%;
+ 
+  
+  background-color: rgb(107, 228, 107);
+  
+}
+h3{
+  color: rgb(11, 3, 14);
+  text-shadow: -0.2px 0.2px 0 #000,
+  0.2px 0.2px 0 #000,
+  0.2px -0.2px 0 #000,
+  -0.2px -0.2px 0 #000;
+}
+p{
+  color: rgb(187, 190, 189);
+  text-shadow: -1px 1px 0 #000,
+  1px 1px 0 #000,
+ 1px -1px 0 #000,
+  -1px -1px 0 #000;
+}
+
+.reimbPage {
+    margin-left: 50px;
+}
+
+.control label {
+  color: chartreuse;
+  font-size: 25px;
+}
+
+.control .input-group option, .control .input-group select {
+  color: rgb(20, 137, 102);
+
+}
+
+/* table {
+    border-style: solid;
+    border-width: 2px;
+} */
+
+/* The popup form - hidden by default */
+.form-popup {
+    /* display: none; */
+    position: fixed;
+    bottom: 0;
+    right: 15px;
+    border: 3px solid #f1f1f1;
+    z-index: 9;
+    text-align: center;
+  }
+  
+  /* Add styles to the form container */
+  .form-container {
+    max-width: 300px;
+    padding: 10px;
+    background-color: dimgrey;
+  }
+
+  .input-group-text {
+    background-color: darkgrey;
+  }
+
+  .form-container input, .input-group option, .input-group select {
+    color: #8F7CEC;
+  }
+  
+  /* Full-width input fields */
+  .form-container input[type=text], .form-container input[type=password] {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    border: none;
+    background: #f1f1f1;
+  }
+  
+  /* When the inputs get focus, do something */
+  .form-container input[type=text]:focus, .form-container input[type=password]:focus {
+    background-color: #ddd;
+    outline: none;
+  }
+  
+  /* Set a style for the submit/login button */
+  .form-container .btn {
+    background-color: #04AA6D;
+    color: white;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom:10px;
+    opacity: 0.8;
+  }
+  
+  /* Add a red background color to the cancel button */
+  .form-container .cancel {
+    background-color: red;
+  }
+  
+  /* Add some hover effects to buttons */
+  .form-container .btn:hover, .open-button:hover {
+    opacity: 1;
+  }
