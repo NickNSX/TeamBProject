@@ -52,7 +52,6 @@ export class ReimbursementComponent implements OnInit {
   ReimSingle: Reimbursement = {};
 
   getAll() {
-    console.log(this.us.user.role);
     this.noReimb = true;
     this.hiddenGrid = false;
 
@@ -66,9 +65,9 @@ export class ReimbursementComponent implements OnInit {
     if (this.us.user.role == "Finance Manager") {
 
       this.rs.getAll("/manager").subscribe(
-
+        
         (data: any) => {
-          console.log(data);
+          console.log("Getting all Reimb");
           for (let i = 0; i < data.length; i++) {
             this.allReimb.push(data[i]);
           }
@@ -76,6 +75,7 @@ export class ReimbursementComponent implements OnInit {
 
         err => {
           if (err.error.statusCode == 404) {
+            console.error("No Information Found");
             this.noReimb = false;
           }
         }
@@ -87,7 +87,7 @@ export class ReimbursementComponent implements OnInit {
       this.rs.getAll("/employee/" + this.us.user.userId).subscribe(
 
         (data: any) => {
-          console.log(data);
+          console.log("Getting all reimb for employee");
           for (let i = 0; i < data.length; i++) {
             this.allReimb.push(data[i]);
           }
@@ -95,6 +95,7 @@ export class ReimbursementComponent implements OnInit {
 
         err => {
           if (err.error.status == 404) {
+            console.error("No Information Found");
             this.noReimb = false;
           }
         }
@@ -103,9 +104,6 @@ export class ReimbursementComponent implements OnInit {
     } else {
       console.log("Not Login in");
     }
-
-    console.log("Getting all reimb.");
-
   }
 
   searchById() {
@@ -127,6 +125,8 @@ export class ReimbursementComponent implements OnInit {
     this.rs.searchById(this.idToSearch).subscribe(
 
       (data: any) => {
+        console.log("Searching by id.");
+        
         for (let i = 0; i < data.length; i++) {
           this.allReimb.push(data[i]);
         }
@@ -138,6 +138,7 @@ export class ReimbursementComponent implements OnInit {
 
       err => {
         if (err.error.status == 404) {
+          console.error("No Information Found");
           this.noReimb = false;
         }
       }
@@ -163,17 +164,17 @@ export class ReimbursementComponent implements OnInit {
     this.rs.searchByStatus(this.statusToSearch).subscribe(
 
       (data: any) => {
-
+        
         if (this.us.user.role != "Finance Manager") {
-          console.log("check 1");
-          console.log(data);
-
+          console.log("Reimb by status for Finance Manger");
+          
           for (let i = 0; i < data.length; i++) {
-            if (this.us.user.userId == data[i].authorId) { console.log("check 2");
+            if (this.us.user.userId == data[i].authorId) {
             this.allReimb.push(data[i]);
             }
           }
         } else {
+          console.log("Reimb by status for employee and admin");
           for (let i = 0; i < data.length; i++) {
             this.allReimb.push(data[i]);
           }
@@ -186,8 +187,10 @@ export class ReimbursementComponent implements OnInit {
 
       err => {
         if (err.error.status == 404) {
+          console.error("No information found.");
           this.noReimb = false;
         }
+        console.error(err.error.message);
       }
     )
   }
