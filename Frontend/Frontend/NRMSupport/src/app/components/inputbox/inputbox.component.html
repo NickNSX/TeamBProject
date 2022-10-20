@@ -1,7 +1,7 @@
 
 
 
-    <div class="padding" [hidden]="hiddenStart">
+    <!-- <div class="padding" [hidden]="hiddenStart">
         <div class="textbox-card">
 
             <h2> Enter author ID:</h2>
@@ -15,7 +15,7 @@
         </div>
 
 
-    </div>
+    </div> -->
 
     <div [hidden]="hiddenGrid">
         <div class="grid-cont">
@@ -30,16 +30,37 @@
                 <p>Resolver ID: {{ReimSingle.resolverId}}</p>
                 <p>Status : {{ReimSingle.status}}</p>
                 <p>Type : {{ReimSingle.type}}</p>
+                <button *ngIf="ReimSingle.status == 'Pending'" >update</button>
+                <!--<button class = "button1" (click)="showReim()">enter</button>-->
             </div>
 
 
         </div>
     </div>
 
+
+
+    
+<div class = "buttonContainer">
     <div class="buttonDiv">
         <button class="button1" (click)="getAllReim()">Get All</button>
     </div>
 
     <div class="buttonDiv">
-        <button class="button1" (click)="showReim()">enter</button>
+        <!--Origonal = dissapear <button class="button1" (click)="showReim()">enter</button>-->
+        <!-- <button class="button1" (click)="showReim()">enter</button> -->
+       <button class = "button1" (click)="showReim()">enter</button>
+        <!-- <button class="button1" >enter</button> -->
     </div>
+
+    <div class = "checkbox1">
+        <input type="checkbox" id="1" name="1" value="pend">
+        <label for="1"> pending only</label><br>
+    </div>
+
+    <div class = "checkbox2">
+        <input type="checkbox" id="2" name="2" value="AD">
+        <label for="2"> Approve/Deny only</label>
+    </div>
+
+</div> 
