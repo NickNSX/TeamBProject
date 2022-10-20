@@ -1,53 +1,32 @@
-<div class="body">
-  <h1> Create New Reimbursement Request</h1>
-  <br>
-  <br>
+<p [hidden]="loginMessage"><b>Not Logged In</b></p>
+<div class="body" [hidden]="loginIn">
 
-  <form>
+  <form >
 
 
-
-
-
-
-<br>
-<br>
-
-<form #reimbursements = "ngForm" (ngSubmit) = "onClickSubmit(reimbursements.value)">
-
-  
-  <h1> Create New Reimbursement Request</h1> 
+    <h1> Create New Reimbursement Request</h1>
 
     <label for="amount">Amount:</label><br>
-    <input type=”number” [(ngModel)] = “amount”/><br>
+    <input type=”number” name="amount" placeholder="Max of 10,000" [(ngModel)]="newReq.amount"><br>
 
     <br>
     <br>
 
     <div>
 
-    <label for="description">Description:</label><br>
-    <input type="text" id="description" [(ngModel))] = "description" style="width: 300px; height: 100px;" rows="4" cols="50"><br>
-    </div> 
-
       <label for="description">Description:</label><br>
-      <input type="text" id="description" name="description" style="width: 300px; height: 100px;" rows="4"
-        cols="50"><br>
+      <input type="text" id="description" name="description" style="width: 300px; height: 100px;" [(ngModel)]="newReq.description"><br>
     </div>
-
-
-    <br>
-    <br>
 
     <div>
       <label for="type">Reimbursement Type:</label>
-      <input type="radio" id="travel" name="Reimbursement Type" value="Travel">
+      <input type="radio" id="travel" name="type" value="Travel" [(ngModel)]="newReq.type">
       <label for="travel">TRAVEL</label>
-      <input type="radio" id="food" name="Reimbursement Type" value="Food">
+      <input type="radio" id="food" name="type" value="Food" [(ngModel)]="newReq.type">
       <label for="food">FOOD</label>
-      <input type="radio" id="lodge" name="Reimbursement Type" value="Lodge">
+      <input type="radio" id="lodge" name="type" value="Lodge" [(ngModel)]="newReq.type">
       <label for="lodge">LODGE</label>
-      <input type="radio" id="other" name="Reimbursement Type" value="Other">
+      <input type="radio" id="other" name="type" value="Other" [(ngModel)]="newReq.type">
       <label for="other">OTHER</label>
     </div>
 
@@ -55,23 +34,12 @@
     <br>
     <div>
 
-    <input type="submit" id="submit" (click) = “submitFunction()” name="Reimbursement Type" value="Submit">
-    <input type="reset"  id="resetForm" name="Reset Form" value="Reset Form">
-    </div>
-    
-    
-  </form>
-
- 
-
-      <input type="submit" id="submit" name="Reimbursement Type" value="Submit" (click)="domFunction()">
+      <input type="submit" id="submit" name="type" value="Submit" (click)="submitFunction()">
       <input type="reset" id="resetForm" name="Reset Form" value="Reset Form">
-      <br>
       <p>{{submitMessage}}</p>
+      <p>ReimbId: {{reimbId}}</p>
     </div>
 
-
-
   </form>
-</div>
 
+</div>

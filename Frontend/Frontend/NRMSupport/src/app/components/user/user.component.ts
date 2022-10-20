@@ -16,6 +16,7 @@ export class UserComponent implements OnInit {
       this.adminAccess = false;
       this.loggedIn = false;
       this.falseNumb();
+      this.sort();
       this.message = "Welcome " + this.givenName + "!";
     } else if (this.role != "Admin" && this.role != undefined) {
       this.adminAccess = true;
@@ -44,7 +45,11 @@ export class UserComponent implements OnInit {
   loggedIn:boolean = true;
   showAll:boolean = true;
   showNonActive:boolean = true;
-  
+  showActive:boolean = true;
+  showEmployee:boolean = true;
+  showAdmin:boolean = true;
+  showFinance:boolean = true;
+
   message:string = "";
   id:string = "";
   errorMessage:string = "";
@@ -52,16 +57,29 @@ export class UserComponent implements OnInit {
   displayMessage:string = "";
   
   falseN:number = 0;
+  trueN:number = 0;
+  employeeN:number = 0;
+  adminN:number = 0;
+  financeN:number = 0;
+  
   inActiveUser:any = [];
+  activeUser:any = [];
   userArray:any = [];
+  employeeUser:any = [];
+  adminUser:any = [];
+  financeUser:any = [];
 
   updateInfo:User = { }
 
   search() {
 
-    this.showAll = false;
+    this.showActive = true;
+    this.showEmployee = true;
+    this.showAdmin = true;
+    this.showFinance = true;
     this.showNonActive = true;
     this.option1 = true;
+    this.showAll = false;
 
     for (let i = this.userArray.length - 1; i >= 0; i--) {
       this.userArray.pop();
@@ -88,7 +106,6 @@ export class UserComponent implements OnInit {
           this.errorMessage = err.error.message + this.idToSearch;
           this.error=false;this.idToSearch="";
         }
-        
       );
   }
 
@@ -98,6 +115,7 @@ export class UserComponent implements OnInit {
       if (confirm("Confirm Deactivation?") == true) {
         this.us.deactivate(userId).subscribe();
         alert("User Deactivated.");
+        this.falseN ++;
       } else {
         alert("User not deactivated.")
       }
@@ -109,12 +127,11 @@ export class UserComponent implements OnInit {
         this.us.updateUser(this.updateInfo).subscribe();
         this.updateInfo = { };
         alert("User Activated.");
+        this.falseN --;
       } else {
         alert("User not activated.")
       }
     }
-
-    this.falseNumb();
   }
 
   update(userId:string) {
@@ -133,6 +150,10 @@ export class UserComponent implements OnInit {
 
   searchByUserId() {
     this.showNonActive = true;
+    this.showActive = true;
+    this.showEmployee = true;
+    this.showAdmin = true;
+    this.showFinance = true;
     this.showAll = false;
     this.displayMessage = "";
     if (this.userArray.length > 0) {
@@ -155,16 +176,6 @@ export class UserComponent implements OnInit {
     this.hideForm = true;
   }
   
-  switchView() {
-    this.showAll = true;
-    this.showNonActive = false;
-    if (this.falseN > 1) {
-      this.displayMessage = "In Active User:";
-    } else {
-      this.displayMessage = "In Active Users:"
-    }
-  }
-
   falseNumb() {
     this.falseN = 0;
     this.us.search(this.idToSearch).subscribe(
@@ -173,9 +184,101 @@ export class UserComponent implements OnInit {
           if(data[i].isActive === false) {
             this.inActiveUser.push(data[i]);
             this.falseN ++;
+          } else {
+            this.activeUser.push(data[i]);
+            this.trueN ++;
           }
         }
       }
-    )
+      );
+    }
+
+  sort() {
+    this.us.search(this.idToSearch).subscribe(
+      (data:any) => {
+        for (let i = 0; i < data.length; i++) {
+          if (data[i].role === "Employee") {
+            this.employeeUser.push(data[i]);
+            this.employeeN ++;
+          } else if (data[i].role === "Admin") {
+            this.adminUser.push(data[i]);
+            this.adminN ++;
+          } else {
+            this.financeUser.push(data[i]);
+            this.financeN ++;
+          }
+        }
+      }
+      );
+    }
+    
+    showInActive() {
+      this.showAll = true;
+      this.showActive = true;
+      this.showEmployee = true;
+      this.showAdmin = true;
+      this.showFinance = true;
+      this.showNonActive = false;
+      if (this.falseN > 1) {
+        this.displayMessage = "In Active Users:";
+      } else {
+        this.displayMessage = "In Active User:"
+      }
+    }
+
+  showAllActive() {
+    this.showAll = true;
+    this.showNonActive = true;
+    this.showEmployee = true;
+    this.showAdmin = true;
+    this.showFinance = true;
+    this.showActive = false;
+    if (this.falseN > 1) {
+      this.displayMessage = "Active Users:";
+    } else {
+      this.displayMessage = "Active User:"
+    }
   }
+
+  showAllEmployee() {
+    this.showAll = true;
+    this.showNonActive = true;
+    this.showActive = true;
+    this.showAdmin = true;
+    this.showFinance = true;
+    this.showEmployee = false;
+    if (this.employeeN > 1) {
+      this.displayMessage = "Employees:";
+    } else {
+      this.displayMessage = "Employee:"
+    }
+  }
+
+  showAllAdmin() {
+    this.showAll = true;
+    this.showNonActive = true;
+    this.showActive = true;
+    this.showEmployee = true;
+    this.showFinance = true;
+    this.showAdmin = false;
+    if (this.adminN > 1) {
+      this.displayMessage = "Admins:";
+    } else {
+      this.displayMessage = "Admin:"
+    }
+  }
+  showAllFinance() {
+    this.showAll = true;
+    this.showNonActive = true;
+    this.showActive = true;
+    this.showEmployee = true;
+    this.showAdmin = true;
+    this.showFinance = false;
+    if (this.financeN > 1) {
+      this.displayMessage = "Finance Managers:";
+    } else {
+      this.displayMessage = "Finance Manager:"
+    }
+  }
+
 }
